@@ -1,16 +1,27 @@
 language: node_js
 
-os:
-  - linux
-  - windows
-  - osx
+matrix:
+  include:
+    - os: linux
+      node_js: 'v6.9.0'
 
-node_js:
-  - 'v6.9.0'
-  - 'v6.17.1'
-  - 'v8.16.0'
-  - 'v10.16.0'
-  - 'v12.6.0'
+    - os: linux
+      node_js: 'v6.17.1'
+
+    - os: linux
+      node_js: 'v8.16.0'
+
+    - os: linux
+      node_js: 'v10.16.0'
+
+    - os: linux
+      node_js: 'v12.6.0'
+
+    - os: windows
+      node_js: 'v12.6.0'
+
+    - os: osx
+      node_js: 'v12.6.0'
 
 cache:
   directories:
