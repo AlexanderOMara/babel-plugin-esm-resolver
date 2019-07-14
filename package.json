@@ -18,13 +18,17 @@
 		"node": ">=6.9.0"
 	},
 	"scripts": {
-		"clean": "gulp clean",
-		"lint": "gulp lint",
-		"build": "gulp build",
-		"test": "gulp test",
-		"all": "gulp all",
-		"watch": "nodemon --exec 'gulp watched'",
-		"prepack": "gulp prepack"
+		"clean": "rimraf npm-debug.log* yarn-debug.log* yarn-error.log* lib",
+		"lint": "eslint . --ext js,mjs",
+		"lints": "eslint . --ext js,mjs || true",
+		"build:mjs": "babel --config-file ./.babelrc.esm src --out-dir lib --source-maps true --keep-file-extension",
+		"build:cjs": "babel src --out-dir lib --source-maps true",
+		"build": "run-p build:mjs build:cjs",
+		"test": "jasmine",
+		"all": "run-s clean lint build test",
+		"watchd": "run-s clean lints build test",
+		"watch": "nodemon --exec 'run-s watchd'",
+		"prepack": "run-s clean build"
 	},
 	"repository": "https://github.com/AlexanderOMara/babel-plugin-esm-resolver.git",
 	"bugs": "https://github.com/AlexanderOMara/babel-plugin-esm-resolver/issues",
@@ -32,6 +36,7 @@
 	"copyright": "Copyright (c) 2019 Alexander O'Mara",
 	"license": "MPL-2.0",
 	"devDependencies": {
+		"@babel/cli": "^7.5.0",
 		"@babel/core": "^7.5.4",
 		"@babel/preset-env": "^7.5.4",
 		"@babel/register": "^7.4.4",
@@ -39,14 +44,11 @@
 		"eslint": "^6.0.1",
 		"execa": "^2.0.3",
 		"fs-extra": "^8.1.0",
-		"gulp": "^4.0.2",
-		"gulp-babel": "^8.0.0",
-		"gulp-insert": "^0.5.0",
-		"gulp-rename": "^1.4.0",
-		"gulp-sourcemaps": "^2.6.5",
 		"jasmine": "^3.4.0",
 		"jasmine-spec-reporter": "^4.2.1",
-		"nodemon": "^1.19.1"
+		"nodemon": "^1.19.1",
+		"npm-run-all": "^4.1.5",
+		"rimraf": "^2.6.3"
 	},
 	"dependencies": {
 		"node-require-function": "^1.2.0"
