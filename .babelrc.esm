@@ -1,0 +1,12 @@
+{
+	"presets": [
+		["@babel/preset-env", {
+			"modules": false,
+			"targets": {
+				"node": "6.9.0"
+			}
+		}]
+	],
+	"plugins": [],
+	"babelrc": false
+}
