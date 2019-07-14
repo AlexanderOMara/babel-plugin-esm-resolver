@@ -17,6 +17,7 @@ yarn-error.log*
 
 /package-lock.json
 /.gitignore
+.gitattributes
 /.babelrc*
 /.editorconfig
 /.eslintignore
