@@ -1,8 +1,7 @@
 {
-	"private": true,
 	"name": "babel-plugin-esm-resolver",
 	"description": "A Babel plugin for resolving ESM import and export paths",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"keywords": [
 		"babel",
 		"esm",
