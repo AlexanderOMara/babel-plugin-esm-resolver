@@ -1,0 +1,54 @@
+{
+	"private": true,
+	"name": "babel-plugin-esm-resolver",
+	"description": "A Babel plugin for resolving ESM import and export paths",
+	"version": "0.0.0",
+	"keywords": [
+		"babel",
+		"esm",
+		"es6",
+		"modules",
+		"resolve",
+		"resolver",
+		"import",
+		"export"
+	],
+	"main": "lib/index",
+	"engines": {
+		"node": ">=6.9.0"
+	},
+	"scripts": {
+		"clean": "gulp clean",
+		"lint": "gulp lint",
+		"build": "gulp build",
+		"test": "gulp test",
+		"all": "gulp all",
+		"watch": "nodemon --exec 'gulp watched'",
+		"prepack": "gulp prepack"
+	},
+	"repository": "https://github.com/AlexanderOMara/babel-plugin-esm-resolver.git",
+	"bugs": "https://github.com/AlexanderOMara/babel-plugin-esm-resolver/issues",
+	"author": "Alexander O'Mara",
+	"copyright": "Copyright (c) 2019 Alexander O'Mara",
+	"license": "MPL-2.0",
+	"devDependencies": {
+		"@babel/core": "^7.5.4",
+		"@babel/preset-env": "^7.5.4",
+		"@babel/register": "^7.4.4",
+		"del": "^5.0.0",
+		"eslint": "^6.0.1",
+		"execa": "^2.0.3",
+		"fs-extra": "^8.1.0",
+		"gulp": "^4.0.2",
+		"gulp-babel": "^8.0.0",
+		"gulp-insert": "^0.5.0",
+		"gulp-rename": "^1.4.0",
+		"gulp-sourcemaps": "^2.6.5",
+		"jasmine": "^3.4.0",
+		"jasmine-spec-reporter": "^4.2.1",
+		"nodemon": "^1.19.1"
+	},
+	"dependencies": {
+		"node-require-function": "^1.2.0"
+	}
+}

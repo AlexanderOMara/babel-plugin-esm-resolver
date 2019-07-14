@@ -1,0 +1,23 @@
+language: node_js
+
+os:
+  - linux
+  - windows
+  - osx
+
+node_js:
+  - 'v6.9.0'
+  - 'v6.17.1'
+  - 'v8.16.0'
+  - 'v10.16.0'
+  - 'v12.6.0'
+
+cache:
+  directories:
+    - 'node_modules'
+
+script:
+  - npm run clean
+  - npm run lint
+  - npm run build
+  - npm run test
