@@ -370,10 +370,10 @@ describe('index', () => {
 				}).toThrow();
 			});
 
-			it('ignoreUnresolved', () => {
+			it('ignoreUnresolvedSubmodule', () => {
 				const f = specPath('unresolved-module-paths/main.mjs');
 				const t = transformFile(f, {
-					ignoreUnresolved: true
+					ignoreUnresolvedSubmodule: true
 				});
 				const path = getCodePath(t.codeOut);
 				expect(path).toBe('-testing-module/lib/bar');
@@ -392,10 +392,10 @@ describe('index', () => {
 				}).toThrow();
 			});
 
-			it('ignoreUnresolved', () => {
+			it('ignoreUnresolvedSubmodule', () => {
 				const f = specPath('unresolved-module-ns-paths/main.mjs');
 				const t = transformFile(f, {
-					ignoreUnresolved: true
+					ignoreUnresolvedSubmodule: true
 				});
 				const path = getCodePath(t.codeOut);
 				expect(path).toBe('@-testing/module/lib/bar');

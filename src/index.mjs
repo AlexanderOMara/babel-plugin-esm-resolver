@@ -68,6 +68,10 @@ function optIgnoreUnresolved(opts) {
 	return opts.ignoreUnresolved || false;
 }
 
+function optIgnoreUnresolvedSubmodule(opts) {
+	return opts.ignoreUnresolvedSubmodule || false;
+}
+
 function modulePathsForFile(file) {
 	// Node v12.2.0+:
 	if (Module.createRequire) {
@@ -155,7 +159,7 @@ function visitDeclarationModulePath(nodePath, state, modulePath) {
 	// Parse options.
 	const opts = state.opts || {};
 	const extensions = optExtentionsSubmodule(opts);
-	const ignoreUnresolved = optIgnoreUnresolved(opts);
+	const ignoreUnresolved = optIgnoreUnresolvedSubmodule(opts);
 
 	// Resolve the module base, or fail.
 	const {filename} = state.file.opts;

@@ -75,6 +75,12 @@ Set to `true` to ignore any modules that cannot be resolved.
 
 By default an error is throw for any modules that cannot be resolved.
 
+### `ignoreUnresolvedSubmodule`
+
+Set to `true` to ignore any modules that cannot be resolved in submodules.
+
+By default an error is throw for any submodules that cannot be resolved.
+
 
 ## Examples
 
