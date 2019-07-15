@@ -80,10 +80,10 @@ function modulePathsForFile(file) {
 	}
 
 	// Older versions:
-	return [].concat([
+	return [].concat(
 		Module._nodeModulePaths(path.dirname(file)),
 		Module.globalPaths
-	]);
+	);
 }
 
 function resolveModuleDir(name, file) {
