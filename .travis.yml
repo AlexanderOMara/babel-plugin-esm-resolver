@@ -27,10 +27,6 @@ matrix:
     - os: osx
       node_js: 'v12.6.0'
 
-cache:
-  directories:
-    - 'node_modules'
-
 script:
   - npm run clean
   - if [ "$NO_LINT" != "1" ]; then npm run lint; fi
