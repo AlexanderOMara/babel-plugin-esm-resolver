@@ -49,7 +49,5 @@
 		"npm-run-all": "^4.1.5",
 		"rimraf": "^2.6.3"
 	},
-	"dependencies": {
-		"node-require-function": "^1.2.0"
-	}
+	"dependencies": {}
 }

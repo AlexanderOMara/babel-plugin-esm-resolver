@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-
-import getRequire from 'node-require-function';
+import Module from 'module';
 
 function pathStat(path) {
 	try {
@@ -39,44 +38,63 @@ function parseModulePath(path) {
 	return null;
 }
 
+function mapExtensions(e) {
+	let src = null;
+	let dst = null;
+	if (Array.isArray(e)) {
+		const l = e.length;
+		src = l ? e[0] : null;
+		dst = l > 1 ? e[1] : null;
+	}
+	else {
+		src = e;
+	}
+	const srcs = Array.isArray(src) ? src : [src];
+	return {
+		srcs,
+		dst
+	};
+}
+
 function optExtentions(opts) {
-	return (opts.extensions || []).map(e => {
-		let src = null;
-		let dst = null;
-		if (Array.isArray(e)) {
-			const l = e.length;
-			src = l ? e[0] : null;
-			dst = l > 1 ? e[1] : null;
-		}
-		else {
-			src = e;
-		}
-		const srcs = Array.isArray(src) ? src : [src];
-		return {
-			srcs,
-			dst
-		};
-	});
+	return (opts.extensions || []).map(mapExtensions);
+}
+
+function optExtentionsSubmodule(opts) {
+	return (opts.extensionsSubmodule || []).map(mapExtensions);
 }
 
 function optIgnoreUnresolved(opts) {
 	return opts.ignoreUnresolved || false;
 }
 
-function resolveModuleDir(name) {
-	const require = getRequire();
-	if (!require || typeof require.resolve !== 'function') {
-		throw new Error('Failed to get node require function');
+function modulePathsForFile(file) {
+	// Node v12.2.0+:
+	if (Module.createRequire) {
+		return Module.createRequire(file).resolve.paths('');
 	}
-	const resolved = require.resolve(name);
-	let r = resolved;
-	while (path.basename(r) !== 'node_modules') {
-		r = path.dirname(r);
-		if (!/node_modules/.test(r)) {
-			return null;
+
+	// Node v10.12.0+:
+	if (Module.createRequireFromPath) {
+		return Module.createRequireFromPath(file).resolve.paths('');
+	}
+
+	// Older versions:
+	return [].concat([
+		Module._nodeModulePaths(path.dirname(file)),
+		Module.globalPaths
+	]);
+}
+
+function resolveModuleDir(name, file) {
+	const paths = modulePathsForFile(file);
+	for (const p of paths) {
+		const full = path.join(p, name);
+		if (pathStat(full)) {
+			return full;
 		}
 	}
-	return `${r}/${name}`;
+	return null;
 }
 
 function resolveExtension(base, extensions) {
@@ -120,7 +138,9 @@ function visitDeclarationFilePath(nodePath, state) {
 	const resolved = resolveExtension(resolveBase, extensions);
 	if (resolved === null) {
 		if (!ignoreUnresolved) {
-			throw new Error(`Failed to resolve path: ${resolveBase}`);
+			throw new Error(
+				`Failed to resolve path: ${resolveBase} in: ${filename}`
+			);
 		}
 	}
 	else {
@@ -131,26 +151,30 @@ function visitDeclarationFilePath(nodePath, state) {
 function visitDeclarationModulePath(nodePath, state, modulePath) {
 	// Parse options.
 	const opts = state.opts || {};
-	const extensions = optExtentions(opts);
+	const extensions = optExtentionsSubmodule(opts);
 	const ignoreUnresolved = optIgnoreUnresolved(opts);
 
-	// Resolve the module base.
+	// Resolve the module base, or fail.
+	const {filename} = state.file.opts;
 	const moduleName = modulePath.name;
-	const moduleDir = resolveModuleDir(moduleName);
+	const moduleDir = resolveModuleDir(moduleName, filename);
 	if (!moduleDir) {
 		if (!ignoreUnresolved) {
-			throw new Error(`Failed to resolve module: ${moduleName}`);
+			throw new Error(
+				`Failed to resolve module: ${moduleName} in: ${filename}`
+			);
 		}
 		return;
 	}
 
-	// Resolve from the base.
+	// Resolve the file then resolve extension.
 	const resolveBase = `${moduleDir}${modulePath.path}`;
 	const resolved = resolveExtension(resolveBase, extensions);
 	if (resolved === null) {
 		if (!ignoreUnresolved) {
-			const {filename} = state.file.opts;
-			throw new Error(`Failed to resolve module: ${filename}`);
+			throw new Error(
+				`Failed to resolve module: ${moduleName} in: ${filename}`
+			);
 		}
 	}
 	else {

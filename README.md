@@ -58,6 +58,17 @@ Takes the form of one of the following.
 ]
 ```
 
+### `extensionsSubmodule`
+
+A list of extensions to resolve when importing a module's submodules (`import a from 'aaa/submod';`, `import b from '@org/bbb/submod';`).
+
+```json
+[
+	".js",
+	".json"
+]
+```
+
 ### `ignoreUnresolved`
 
 Set to `true` to ignore any modules that cannot be resolved.

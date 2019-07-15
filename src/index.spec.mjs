@@ -316,7 +316,7 @@ describe('index', () => {
 
 				const f = specPath('resolve-module-paths/main.mjs');
 				const t = transformFile(f, {
-					extensions: [
+					extensionsSubmodule: [
 						'.js'
 					]
 				});
@@ -347,7 +347,7 @@ describe('index', () => {
 
 				const f = specPath('resolve-module-ns-paths/main.mjs');
 				const t = transformFile(f, {
-					extensions: [
+					extensionsSubmodule: [
 						'.js'
 					]
 				});
