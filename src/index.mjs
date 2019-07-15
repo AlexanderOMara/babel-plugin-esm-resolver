@@ -139,7 +139,7 @@ function visitDeclarationFilePath(nodePath, state) {
 	if (resolved === null) {
 		if (!ignoreUnresolved) {
 			throw new Error(
-				`Failed to resolve path: ${resolveBase} in: ${filename}`
+				`Failed to resolve path: ${src} in: ${filename}`
 			);
 		}
 	}
@@ -149,6 +149,9 @@ function visitDeclarationFilePath(nodePath, state) {
 }
 
 function visitDeclarationModulePath(nodePath, state, modulePath) {
+	const {source} = nodePath.node;
+	const src = source.value;
+
 	// Parse options.
 	const opts = state.opts || {};
 	const extensions = optExtentionsSubmodule(opts);
@@ -161,7 +164,7 @@ function visitDeclarationModulePath(nodePath, state, modulePath) {
 	if (!moduleDir) {
 		if (!ignoreUnresolved) {
 			throw new Error(
-				`Failed to resolve module: ${moduleName} in: ${filename}`
+				`Failed to resolve module: ${src} in: ${filename}`
 			);
 		}
 		return;
@@ -173,7 +176,7 @@ function visitDeclarationModulePath(nodePath, state, modulePath) {
 	if (resolved === null) {
 		if (!ignoreUnresolved) {
 			throw new Error(
-				`Failed to resolve module: ${moduleName} in: ${filename}`
+				`Failed to resolve module: ${src} in: ${filename}`
 			);
 		}
 	}
