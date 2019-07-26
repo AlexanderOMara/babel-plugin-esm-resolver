@@ -9,12 +9,10 @@ import plugin from './index';
 
 function listDirs(path) {
 	// eslint-disable-next-line no-sync
-	const list = fse.readdirSync(path, {
-		withFileTypes: true
-	});
-	return list
-		.filter(o => !/!\./.test(o.name) && o.isDirectory())
-		.map(o => o.name)
+	return fse.readdirSync(path)
+		.filter(s => !/!\./.test(s))
+		// eslint-disable-next-line no-sync
+		.filter(s => fse.statSync(`${path}/${s}`).isDirectory())
 		.sort();
 }
 
