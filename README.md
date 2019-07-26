@@ -16,18 +16,18 @@ A Babel plugin for resolving ESM import and export paths
 
 Resolves ESM import and export paths to other source modules with extensions, optionally replacing the extension with a different one. This is useful because browsers cannot perform automatic file extension resolution, and other environments like Node may not have this enabled by default either.
 
-Must be configured to work properly, and will throw an error if any modules cannot be resolved (this can optionally be turned off).
-
 Since it resolves the statements before the modules are transpiled, it can also be used to resolve the paths for other transpiled module loaders.
+
+Must be configured to work properly, will not do anything by default. There are three resolvers that can be enabled.
 
 
 # Usage
 
 ## Options
 
--   [source](options/source.md)
--   [submodule](options/submodule.md)
--   [module](options/module.md)
+-   [`source`](options/source.md) Source modules (`import foo from 'bar'`).
+-   [`submodule`](options/submodule.md) Module submodules (`import foo from 'bar/foo'`).
+-   [`module`](options/module.md) Module main entry points (`import foo from 'bar'`).
 
 
 # Bugs
