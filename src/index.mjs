@@ -1,29 +1,31 @@
 import fs from 'fs';
 import path from 'path';
 import Module from 'module';
+import process from 'process';
 
 let moduleIsBuiltinCache = null;
 
 function moduleIsBuiltin(name) {
-	// Node v9.3.0+
-	const list = Module.builtinModules;
-	if (list) {
-		moduleIsBuiltinCache = moduleIsBuiltinCache || new Set(list);
-		return moduleIsBuiltinCache.has(name);
-	}
-
-	// Older versions:
-	if (Module._resolveFilename) {
-		try {
-			return Module._resolveFilename(name) === name;
+	while (!moduleIsBuiltinCache) {
+		// Node v9.3.0+
+		const list = Module.builtinModules;
+		if (list) {
+			moduleIsBuiltinCache = new Set(list);
+			break;
 		}
-		catch (err) {
-			// Do nothing.
-		}
-		return false;
-	}
 
-	throw new Error('Cannot lookup builtin modules');
+		// Older versions:
+		const natives = process.binding('natives');
+		if (natives) {
+			const list = Object.keys(natives)
+				.filter(s => !/^internal\//.test(s));
+			moduleIsBuiltinCache = new Set(list);
+			break;
+		}
+
+		throw new Error('Cannot lookup builtin modules');
+	}
+	return moduleIsBuiltinCache.has(name);
 }
 
 function pathStat(path) {
@@ -43,6 +45,10 @@ function readJson(path) {
 
 function trimDotSlash(path) {
 	return path.replace(/^(\.\/)+/, '');
+}
+
+function importIsBuiltin(path) {
+	return moduleIsBuiltin(path);
 }
 
 function importIsUrl(path) {
@@ -222,14 +228,9 @@ function visitDeclarationBareMain(nodePath, state, bareImport) {
 		return;
 	}
 
-	// Ignore module if a builtin module.
-	const moduleName = bareImport.name;
-	if (moduleIsBuiltin(moduleName)) {
-		return;
-	}
-
 	// Resolve the module base, or fail.
 	const {filename} = state.file.opts;
+	const moduleName = bareImport.name;
 	const moduleDir = resolveModuleDir(moduleName, filename);
 
 	// Try different entry resolvers.
@@ -287,6 +288,11 @@ function visitDeclaration(nodePath, state) {
 
 	// Ignore any URL imports.
 	if (importIsUrl(src)) {
+		return;
+	}
+
+	// Ignore any builin modules.
+	if (importIsBuiltin(src)) {
 		return;
 	}
 
