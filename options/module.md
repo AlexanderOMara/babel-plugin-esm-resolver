@@ -75,6 +75,7 @@ import {foo} from 'bar';
 
 ```js
 import { foo } from "bar/lib/index.mjs";
+```
 
 
 ## Example `file` path `./module`
