@@ -20,11 +20,10 @@ function moduleIsBuiltin(name) {
 		catch (err) {
 			// Do nothing.
 		}
+		return false;
 	}
-	else {
-		throw new Error('Cannot lookup builtin modules');
-	}
-	return false;
+
+	throw new Error('Cannot lookup builtin modules');
 }
 
 function pathStat(path) {
