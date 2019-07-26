@@ -13,7 +13,7 @@ function listDirs(path) {
 		withFileTypes: true
 	});
 	return list
-		.filter(o => !o.name.startsWith('.') && o.isDirectory())
+		.filter(o => !/!\./.test(o.name) && o.isDirectory())
 		.map(o => o.name)
 		.sort();
 }
