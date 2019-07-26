@@ -5,9 +5,26 @@ import Module from 'module';
 let moduleIsBuiltinCache = null;
 
 function moduleIsBuiltin(name) {
-	moduleIsBuiltinCache = moduleIsBuiltinCache ||
-		new Set(Module.builtinModules);
-	return moduleIsBuiltinCache.has(name);
+	// Node v9.3.0+
+	const list = Module.builtinModules;
+	if (list) {
+		moduleIsBuiltinCache = moduleIsBuiltinCache || new Set(list);
+		return moduleIsBuiltinCache.has(name);
+	}
+
+	// Older versions:
+	if (Module._resolveFilename) {
+		try {
+			return Module._resolveFilename(name) === name;
+		}
+		catch (err) {
+			// Do nothing.
+		}
+	}
+	else {
+		throw new Error('Cannot lookup builtin modules');
+	}
+	return false;
 }
 
 function pathStat(path) {
