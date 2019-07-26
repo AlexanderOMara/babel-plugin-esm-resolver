@@ -28,6 +28,7 @@ yarn-error.log*
 /nodemon.json
 /spec
 /src
+/options
 
 /lib/**/*.spec.js
 /lib/**/*.spec.js.map
