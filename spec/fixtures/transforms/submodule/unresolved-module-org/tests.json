@@ -1,0 +1,29 @@
+[
+	{
+		"name": "changed",
+		"file": "main.mjs",
+		"options": {
+			"submodule": {
+				"extensions": [
+					".js"
+				]
+			}
+		},
+		"module": "@-testing",
+		"throws": "Failed to resolve module"
+	},
+	{
+		"name": "ignore",
+		"file": "main.mjs",
+		"path": "@-testing/module/lib/bar",
+		"options": {
+			"submodule": {
+				"extensions": [
+					".js"
+				],
+				"ignoreUnresolved": true
+			}
+		},
+		"module": "@-testing"
+	}
+]

@@ -1,0 +1,15 @@
+[
+	{
+		"name": "changed",
+		"file": "main.mjs",
+		"path": "@-testing/module/lib/bar.js",
+		"options": {
+			"submodule": {
+				"extensions": [
+					".js"
+				]
+			}
+		},
+		"module": "@-testing"
+	}
+]

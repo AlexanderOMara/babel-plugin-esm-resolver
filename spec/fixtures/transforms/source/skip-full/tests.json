@@ -1,0 +1,14 @@
+[
+	{
+		"name": "ignored",
+		"file": "main.mjs",
+		"path": "./bar.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					".js"
+				]
+			}
+		}
+	}
+]

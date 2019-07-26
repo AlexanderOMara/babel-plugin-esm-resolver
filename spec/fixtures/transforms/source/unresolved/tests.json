@@ -1,0 +1,27 @@
+[
+	{
+		"name": "throws",
+		"file": "main.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					".js"
+				]
+			}
+		},
+		"throws": "Failed to resolve path"
+	},
+	{
+		"name": "ignored",
+		"file": "main.mjs",
+		"path": "./bar",
+		"options": {
+			"source": {
+				"extensions": [
+					".js"
+				],
+				"ignoreUnresolved": true
+			}
+		}
+	}
+]

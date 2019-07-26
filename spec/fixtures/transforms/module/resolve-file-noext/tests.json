@@ -1,0 +1,22 @@
+[
+	{
+		"name": "changed",
+		"file": "main.mjs",
+		"path": "-testing-module/lib/main.mjs",
+		"options": {
+			"module": {
+				"entry": [
+					{
+						"type": "file",
+						"path": "./lib/main",
+						"extensions": [
+							".js",
+							".mjs"
+						]
+					}
+				]
+			}
+		},
+		"module": "-testing-module"
+	}
+]

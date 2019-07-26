@@ -1,0 +1,17 @@
+[
+	{
+		"name": "ignored",
+		"file": "main.mjs",
+		"path": "https://example.com/main.js",
+		"options": {
+			"module": {
+				"entry": [
+					{
+						"type": "file",
+						"path": "./lib/main.mjs"
+					}
+				]
+			}
+		}
+	}
+]

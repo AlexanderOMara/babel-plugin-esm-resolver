@@ -1,0 +1,8 @@
+[
+	{
+		"name": "ignored",
+		"file": "main.mjs",
+		"path": "@bar/core",
+		"options": {}
+	}
+]
