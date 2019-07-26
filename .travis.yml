@@ -19,13 +19,13 @@ matrix:
       node_js: 'v10.16.0'
 
     - os: linux
-      node_js: 'v12.6.0'
+      node_js: 'v12.7.0'
 
     - os: windows
-      node_js: 'v12.6.0'
+      node_js: 'v12.7.0'
 
     - os: osx
-      node_js: 'v12.6.0'
+      node_js: 'v12.7.0'
 
 script:
   - npm run clean
