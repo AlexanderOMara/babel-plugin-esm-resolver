@@ -59,3 +59,4 @@ import {foo} from 'bar/foo';
 
 ```js
 import { foo } from "bar/foo.mjs";
+```
