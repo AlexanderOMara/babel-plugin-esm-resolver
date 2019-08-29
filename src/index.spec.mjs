@@ -1,8 +1,4 @@
-/* eslint-env jasmine */
-/* eslint max-nested-callbacks: off */
-
 import fse from 'fs-extra';
-
 import * as babel from '@babel/core';
 
 import plugin from './index';
@@ -52,7 +48,7 @@ function listTransforms() {
 					file,
 					path: info.path || null,
 					options: info.options || null,
-					'throws': info.throws || null,
+					throws: info.throws || null,
 					module: info.module ? {
 						src: `${subgroupBase}/${info.module}`,
 						dest: `node_modules/${info.module}`

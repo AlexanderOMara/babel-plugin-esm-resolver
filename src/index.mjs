@@ -5,6 +5,12 @@ import process from 'process';
 
 let moduleIsBuiltinCache = null;
 
+/**
+ * Check if a module name is a built-in module.
+ *
+ * @param {string} name Module name.
+ * @returns {boolean} Is built-in.
+ */
 function moduleIsBuiltin(name) {
 	while (!moduleIsBuiltinCache) {
 		// Node v9.3.0+
@@ -28,6 +34,12 @@ function moduleIsBuiltin(name) {
 	return moduleIsBuiltinCache.has(name);
 }
 
+/**
+ * Stat path if exists.
+ *
+ * @param {string} path File path.
+ * @returns {fs.Stats|null} Stat object or null.
+ */
 function pathStat(path) {
 	try {
 		// eslint-disable-next-line no-sync
@@ -38,27 +50,63 @@ function pathStat(path) {
 	}
 }
 
+/**
+ * Read JSON from path.
+ *
+ * @param {string} path JSON path.
+ * @returns {object|Array|string|number|boolean|null} JSON data.
+ */
 function readJson(path) {
 	// eslint-disable-next-line no-sync
 	return JSON.parse(fs.readFileSync(path, 'utf8'));
 }
 
+/**
+ * Trim ./ from head of string.
+ *
+ * @param {string} path Path string.
+ * @returns {string} Trimmed string.
+ */
 function trimDotSlash(path) {
 	return path.replace(/^(\.\/)+/, '');
 }
 
+/**
+ * Check if import path is a built-in module.
+ *
+ * @param {string} path Import path.
+ * @returns {boolean} Is built-in.
+ */
 function importIsBuiltin(path) {
 	return moduleIsBuiltin(path);
 }
 
+/**
+ * Check if import path is a URL.
+ *
+ * @param {string} path Import path.
+ * @returns {boolean} Is URL.
+ */
 function importIsUrl(path) {
 	return /^[^/]+:\/\//.test(path);
 }
 
+/**
+ * Check if import path is a file.
+ *
+ * @param {string} path Import path.
+ * @returns {boolean} Is file.
+ */
 function importIsFile(path) {
 	return path === '.' || path === '..' || /^\.?\.?\//.test(path);
 }
 
+/**
+ * Parse bare imort path, namespace aware.
+ *
+ * @param {string} path Import path.
+ * @returns {string} Object with package name and path.
+ */
 function importBareParse(path) {
 	const ns = path.match(/^(@[^/]+\/[^/]+)([\s\S]*)$/);
 	if (ns) {
@@ -77,6 +125,12 @@ function importBareParse(path) {
 	return null;
 }
 
+/**
+ * Expand extensions options into a list.
+ *
+ * @param {string|Array} e Extenions to be expanded.
+ * @returns {object} List of sources and a destination.
+ */
 function expandExtensions(e) {
 	let src = null;
 	let dst = null;
@@ -95,6 +149,12 @@ function expandExtensions(e) {
 	};
 }
 
+/**
+ * Get module paths for a file.
+ *
+ * @param {string} file File path.
+ * @returns {Array} Module paths.
+ */
 function modulePathsForFile(file) {
 	// Node v12.2.0+:
 	if (Module.createRequire) {
@@ -113,6 +173,13 @@ function modulePathsForFile(file) {
 	);
 }
 
+/**
+ * Resolve the named module director for a file.
+ *
+ * @param {string} name Module name.
+ * @param {string} file File path.
+ * @returns {string} Director path.
+ */
 function resolveModuleDir(name, file) {
 	const paths = modulePathsForFile(file);
 	for (const p of paths) {
@@ -126,6 +193,14 @@ function resolveModuleDir(name, file) {
 	);
 }
 
+/**
+ * Resolve extension for a path base.
+ *
+ * @param {string} base Path base.
+ * @param {Array|string} extensions Extensions option.
+ * @param {boolean} [expand=false] Should extensions be expanded.
+ * @returns {string|null} Resolved extension.
+ */
 function resolveExtension(base, extensions, expand = false) {
 	const stat = pathStat(base);
 	const paths = [''];
@@ -154,6 +229,12 @@ function resolveExtension(base, extensions, expand = false) {
 	return null;
 }
 
+/**
+ * Visitor callback for declaration with path.
+ *
+ * @param {object} nodePath AST node.
+ * @param {object} state AST state.
+ */
 function visitDeclarationPath(nodePath, state) {
 	const {source} = nodePath.node;
 	const src = source.value;
@@ -184,6 +265,13 @@ function visitDeclarationPath(nodePath, state) {
 	}
 }
 
+/**
+ * Visitor callback for declaration with bare import path.
+ *
+ * @param {object} nodePath AST node.
+ * @param {object} state AST state.
+ * @param {object} bareImport Bare import info object.
+ */
 function visitDeclarationBarePath(nodePath, state, bareImport) {
 	const {source} = nodePath.node;
 	const src = source.value;
@@ -217,6 +305,13 @@ function visitDeclarationBarePath(nodePath, state, bareImport) {
 	}
 }
 
+/**
+ * Visitor callback for declaration with bare import main.
+ *
+ * @param {object} nodePath AST node.
+ * @param {object} state AST state.
+ * @param {object} bareImport Bare import info object.
+ */
 function visitDeclarationBareMain(nodePath, state, bareImport) {
 	// Parse options.
 	const optsModule = (state.opts || {}).module;
@@ -277,6 +372,12 @@ function visitDeclarationBareMain(nodePath, state, bareImport) {
 	}
 }
 
+/**
+ * Visitor callback for declarations.
+ *
+ * @param {object} nodePath AST node.
+ * @param {object} state AST state.
+ */
 function visitDeclaration(nodePath, state) {
 	const {source} = nodePath.node;
 	if (!source) {
@@ -315,7 +416,7 @@ function visitDeclaration(nodePath, state) {
 	}
 }
 
-// eslint-disable-next-line arrow-body-style
+// eslint-disable-next-line arrow-body-style, import/no-default-export
 export default () => {
 	return {
 		visitor: {
