@@ -18,19 +18,19 @@ matrix:
       - NO_LINT=1
 
   - os: linux
-    node_js: v10.19.0 # LTS
+    node_js: v10.22.0 # LTS
 
   - os: linux
-    node_js: v12.16.1 # LTS
+    node_js: v12.18.3 # LTS
 
   - os: linux
-    node_js: v13.12.0
+    node_js: v14.6.0
 
   - os: windows
-    node_js: v13.12.0
+    node_js: v14.6.0
 
   - os: osx
-    node_js: v13.12.0
+    node_js: v14.6.0
 
 script:
 - npm run clean
