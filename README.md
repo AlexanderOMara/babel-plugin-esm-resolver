@@ -5,11 +5,11 @@ A Babel plugin for resolving ESM import and export paths
 [![npm](https://img.shields.io/npm/v/babel-plugin-esm-resolver.svg)](https://npmjs.com/package/babel-plugin-esm-resolver)
 [![node](https://img.shields.io/node/v/babel-plugin-esm-resolver.svg)](https://nodejs.org)
 
-[![dependencies](https://david-dm.org/AlexanderOMara/babel-plugin-esm-resolver.svg)](https://david-dm.org/AlexanderOMara/babel-plugin-esm-resolver)
+[![dependencies](https://img.shields.io/david/AlexanderOMara/babel-plugin-esm-resolver.svg)](https://david-dm.org/AlexanderOMara/babel-plugin-esm-resolver)
 [![size](https://packagephobia.now.sh/badge?p=babel-plugin-esm-resolver)](https://packagephobia.now.sh/result?p=babel-plugin-esm-resolver)
 [![downloads](https://img.shields.io/npm/dm/babel-plugin-esm-resolver.svg)](https://npmcharts.com/compare/babel-plugin-esm-resolver?minimal=true)
 
-[![travis-ci](https://travis-ci.org/AlexanderOMara/babel-plugin-esm-resolver.svg?branch=master)](https://travis-ci.org/AlexanderOMara/babel-plugin-esm-resolver)
+[![Build Status](https://github.com/AlexanderOMara/babel-plugin-esm-resolver/workflows/main/badge.svg?branch=master)](https://github.com/AlexanderOMara/babel-plugin-esm-resolver/actions?query=workflow%3Amain+branch%3Amaster)
 
 
 # Overview
