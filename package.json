@@ -35,9 +35,9 @@
 	"copyright": "Copyright (c) 2019-2020 Alexander O'Mara",
 	"license": "MPL-2.0",
 	"devDependencies": {
-		"@babel/cli": "^7.12.10",
-		"@babel/core": "^7.12.10",
-		"@babel/preset-env": "^7.12.10",
+		"@babel/cli": "^7.13.14",
+		"@babel/core": "^7.13.14",
+		"@babel/preset-env": "^7.13.12",
 		"eslint": "^7.15.0",
 		"eslint-plugin-import": "^2.22.1",
 		"eslint-plugin-jsdoc": "^30.7.8",
