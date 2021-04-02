@@ -32,7 +32,7 @@
 	"repository": "https://github.com/AlexanderOMara/babel-plugin-esm-resolver.git",
 	"bugs": "https://github.com/AlexanderOMara/babel-plugin-esm-resolver/issues",
 	"author": "Alexander O'Mara",
-	"copyright": "Copyright (c) 2019-2020 Alexander O'Mara",
+	"copyright": "Copyright (c) 2019-2021 Alexander O'Mara",
 	"license": "MPL-2.0",
 	"devDependencies": {
 		"@babel/cli": "^7.13.14",
