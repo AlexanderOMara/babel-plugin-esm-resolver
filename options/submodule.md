@@ -19,6 +19,10 @@ A list of extensions to resolve when importing a module's submodules.
 
 Set to `true` to ignore any submodule modules that cannot be resolved.
 
+## `submodule.ignoreExports`
+
+Set to `true` to ignore any modules that have an `exports` entry (very important).
+
 
 # Examples
 
@@ -42,7 +46,8 @@ Set to `true` to ignore any submodule modules that cannot be resolved.
 				"extensions": [
 					".mjs",
 					".js"
-				]
+				],
+				"ignoreExports": true
 			}
 		}]
 	]

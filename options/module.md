@@ -29,6 +29,10 @@ A list of entry point resolvers.
 ]
 ```
 
+## `submodule.ignoreExports`
+
+Set to `true` to ignore any modules that have an `exports` entry (very important).
+
 
 # Examples
 
@@ -58,7 +62,8 @@ A list of entry point resolvers.
 							".js"
 						]
 					}
-				]
+				],
+				"ignoreExports": true
 			}
 		}]
 	]
@@ -104,7 +109,8 @@ import { foo } from "bar/lib/index.mjs";
 							".js"
 						]
 					}
-				]
+				],
+				"ignoreExports": true
 			}
 		}]
 	]

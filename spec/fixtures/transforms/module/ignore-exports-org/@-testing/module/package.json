@@ -1,0 +1,4 @@
+{
+	"module": "./lib/main.mjs",
+	"exports": {}
+}

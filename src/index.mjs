@@ -62,6 +62,16 @@ function readJson(path) {
 }
 
 /**
+ * Read module package.json file.
+ *
+ * @param {string} moduleDir Module directory.
+ * @returns {object} Contents of package.json file.
+ */
+function readPackageJson(moduleDir) {
+	return readJson(path.join(moduleDir, 'package.json'));
+}
+
+/**
  * Trim ./ from head of string.
  *
  * @param {string} path Path string.
@@ -283,11 +293,17 @@ function visitDeclarationBarePath(nodePath, state, bareImport) {
 	}
 	const extensions = optsSubmodule.extensions || [];
 	const ignoreUnresolved = optsSubmodule.ignoreUnresolved || false;
+	const ignoreExports = optsSubmodule.ignoreExports || false;
 
 	// Resolve the module base, or fail.
 	const {filename} = state.file.opts;
 	const moduleName = bareImport.name;
 	const moduleDir = resolveModuleDir(moduleName, filename);
+
+	// Optionally ignore modules that have exports.
+	if (ignoreExports && 'exports' in readPackageJson(moduleDir)) {
+		return;
+	}
 
 	// Resolve the file then resolve extension.
 	const resolveBase = `${moduleDir}${bareImport.path}`;
@@ -319,6 +335,7 @@ function visitDeclarationBareMain(nodePath, state, bareImport) {
 		return;
 	}
 	const entry = optsModule.entry || [];
+	const ignoreExports = optsModule.ignoreExports || false;
 	if (!entry.length) {
 		return;
 	}
@@ -328,8 +345,13 @@ function visitDeclarationBareMain(nodePath, state, bareImport) {
 	const moduleName = bareImport.name;
 	const moduleDir = resolveModuleDir(moduleName, filename);
 
-	// Try different entry resolvers.
+	// Optionally ignore modules that have exports.
 	let pkg = null;
+	if (ignoreExports && 'exports' in (pkg = readPackageJson(moduleDir))) {
+		return;
+	}
+
+	// Try different entry resolvers.
 	for (const info of entry) {
 		const entryType = info.type;
 		let filePath = null;
@@ -338,7 +360,7 @@ function visitDeclarationBareMain(nodePath, state, bareImport) {
 		// Handle the different types.
 		switch (entryType) {
 			case 'package.json': {
-				pkg = pkg || readJson(path.join(moduleDir, 'package.json'));
+				pkg = pkg || readPackageJson(moduleDir);
 				filePath = pkg ? pkg[info.field] : null;
 				extensions = info.extensions || [];
 				break;

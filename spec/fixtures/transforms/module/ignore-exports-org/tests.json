@@ -1,0 +1,19 @@
+[
+	{
+		"name": "ignored",
+		"file": "main.mjs",
+		"path": "@-testing/module",
+		"options": {
+			"module": {
+				"entry": [
+					{
+						"type": "package.json",
+						"field": "module"
+					}
+				],
+				"ignoreExports": true
+			}
+		},
+		"module": "@-testing/module"
+	}
+]
