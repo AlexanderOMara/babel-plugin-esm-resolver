@@ -26,7 +26,7 @@
 		"test": "jasmine",
 		"all": "run-s clean lint build test",
 		"watchd": "run-s clean lints build test",
-		"watch": "nodemon --exec 'run-s watchd'",
+		"watched": "nodemon --exec 'run-s watchd'",
 		"prepack": "run-s clean build"
 	},
 	"repository": "https://github.com/AlexanderOMara/babel-plugin-esm-resolver.git",
