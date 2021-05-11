@@ -1,14 +1,15 @@
-import fse from 'fs-extra';
+import fs from 'fs';
+
 import * as babel from '@babel/core';
 
 import plugin from './index';
 
 function listDirs(path) {
 	// eslint-disable-next-line no-sync
-	return fse.readdirSync(path)
+	return fs.readdirSync(path)
 		.filter(s => !/!\./.test(s))
 		// eslint-disable-next-line no-sync
-		.filter(s => fse.statSync(`${path}/${s}`).isDirectory())
+		.filter(s => fs.statSync(`${path}/${s}`).isDirectory())
 		.sort();
 }
 
@@ -30,7 +31,7 @@ function listTransforms() {
 			let tests;
 			try {
 				// eslint-disable-next-line no-sync
-				tests = fse.readJsonSync(`${subgroupBase}/tests.json`);
+				tests = fs.readFileSync(`${subgroupBase}/tests.json`, 'utf8');
 			}
 			catch (err) {
 				continue;
@@ -41,7 +42,7 @@ function listTransforms() {
 				tests: []
 			};
 
-			for (const info of tests) {
+			for (const info of JSON.parse(tests)) {
 				testSubgroup.tests.push({
 					name: info.name,
 					file: `${subgroupBase}/${info.file}`,
@@ -59,7 +60,7 @@ function listTransforms() {
 
 function transformFile(file, opts) {
 	// eslint-disable-next-line no-sync
-	const code = fse.readFileSync(file, 'utf8');
+	const code = fs.readFileSync(file, 'utf8');
 	const transform = babel.transform(code, {
 		plugins: [
 			[plugin, opts].filter(Boolean)
