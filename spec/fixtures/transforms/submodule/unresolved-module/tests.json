@@ -9,7 +9,6 @@
 				]
 			}
 		},
-		"module": "-testing-module",
 		"throws": "Failed to resolve module"
 	},
 	{
@@ -23,7 +22,6 @@
 				],
 				"ignoreUnresolved": true
 			}
-		},
-		"module": "-testing-module"
+		}
 	}
 ]

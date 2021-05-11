@@ -9,7 +9,6 @@
 					".js"
 				]
 			}
-		},
-		"module": "-testing-module"
+		}
 	}
 ]

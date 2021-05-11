@@ -42,19 +42,13 @@ function listTransforms() {
 			};
 
 			for (const info of tests) {
-				const file = `${subgroupBase}/${info.file}`;
-				const test = {
+				testSubgroup.tests.push({
 					name: info.name,
-					file,
+					file: `${subgroupBase}/${info.file}`,
 					path: info.path || null,
 					options: info.options || null,
-					throws: info.throws || null,
-					module: info.module ? {
-						src: `${subgroupBase}/${info.module}`,
-						dest: `node_modules/${info.module}`
-					} : null
-				};
-				testSubgroup.tests.push(test);
+					throws: info.throws || null
+				});
 			}
 			testGroup.tests.push(testSubgroup);
 		}
@@ -88,32 +82,19 @@ function extractCodePath(code) {
 }
 
 function transformTest(info) {
-	const {module} = info;
 	try {
-		if (module) {
-			// eslint-disable-next-line no-sync
-			fse.copySync(module.src, module.dest);
-		}
-		try {
-			const t = transformFile(info.file, info.options);
-			const path = extractCodePath(t.codeOut);
-			if (info.path) {
-				expect(path).toBe(info.path);
-			}
-		}
-		catch (err) {
-			if (info.throws) {
-				expect(err.message.includes(info.throws)).toBe(true);
-			}
-			else {
-				throw err;
-			}
+		const t = transformFile(info.file, info.options);
+		const path = extractCodePath(t.codeOut);
+		if (info.path) {
+			expect(path).toBe(info.path);
 		}
 	}
-	finally {
-		if (module) {
-			// eslint-disable-next-line no-sync
-			fse.removeSync(module.dest);
+	catch (err) {
+		if (info.throws) {
+			expect(err.message.includes(info.throws)).toBe(true);
+		}
+		else {
+			throw err;
 		}
 	}
 }
