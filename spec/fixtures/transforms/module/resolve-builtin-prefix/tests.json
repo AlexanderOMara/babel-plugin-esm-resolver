@@ -1,0 +1,17 @@
+[
+	{
+		"name": "unchanged",
+		"file": "main.mjs",
+		"path": "node:path",
+		"options": {
+			"module": {
+				"entry": [
+					{
+						"type": "file",
+						"path": "./lib/main.mjs"
+					}
+				]
+			}
+		}
+	}
+]
