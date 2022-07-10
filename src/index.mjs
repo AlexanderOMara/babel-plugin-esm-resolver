@@ -12,6 +12,9 @@ let moduleIsBuiltinCache = null;
  * @returns {boolean} Is built-in.
  */
 function moduleIsBuiltin(name) {
+	if (/^node:/.test(name)) {
+		return true;
+	}
 	while (!moduleIsBuiltinCache) {
 		// Node v9.3.0+
 		const list = Module.builtinModules;
