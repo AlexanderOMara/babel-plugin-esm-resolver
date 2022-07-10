@@ -1,4 +1,4 @@
-# babel-plugin-esm-resolver
+# Babel Plugin: ESM Resolver
 
 A Babel plugin for resolving ESM import and export paths
 
