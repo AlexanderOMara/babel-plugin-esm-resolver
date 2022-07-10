@@ -24,9 +24,9 @@
 		"build:cjs": "babel src --out-dir lib --source-maps true",
 		"build": "run-p build:mjs build:cjs",
 		"test": "jasmine",
-		"all": "run-s clean lint build test",
-		"watchd": "run-s clean lints build test",
-		"watched": "nodemon --exec 'run-s watchd'",
+		"all": "run-s clean build test lint",
+		"watched": "run-s clean lints build test lint",
+		"watch": "nodemon --exec 'run-s watched'",
 		"prepack": "run-s clean build"
 	},
 	"repository": "https://github.com/AlexanderOMara/babel-plugin-esm-resolver.git",
