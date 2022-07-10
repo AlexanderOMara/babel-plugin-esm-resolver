@@ -10,10 +10,12 @@ jobs:
           - runs-on: ubuntu-20.04
             node-version: '6.9.0'
             NO_LINT: 1
+            NO_NPM_CI: 1
 
           - runs-on: ubuntu-20.04
             node-version: '6.17.1' # LTS
             NO_LINT: 1
+            NO_NPM_CI: 1
 
           - runs-on: ubuntu-20.04
             node-version: '8.17.0' # LTS
@@ -56,6 +58,11 @@ jobs:
 
       - name: Dependencies
         run: npm ci
+        if: matrix.config.NO_NPM_CI != 1
+
+      - name: Dependencies
+        run: npm install
+        if: matrix.config.NO_NPM_CI == 1
 
       - name: Build
         run: npm run build
