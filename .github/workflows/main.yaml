@@ -17,6 +17,7 @@ jobs:
             node-version: '8.9.0' # LTS
             NO_FORMATTED: 1
             NO_LINT: 1
+            NO_NPM_CI: 1
 
           - runs-on: ubuntu-20.04
             node-version: '10.13.0' # LTS
