@@ -26,8 +26,9 @@ function moduleIsBuiltin(name) {
 		// Older versions:
 		const natives = process.binding('natives');
 		if (natives) {
-			const list = Object.keys(natives)
-				.filter(s => !/^internal\//.test(s));
+			const list = Object.keys(natives).filter(
+				s => !/^internal\//.test(s)
+			);
 			moduleIsBuiltinCache = new Set(list);
 			break;
 		}
@@ -47,8 +48,7 @@ function pathStat(path) {
 	try {
 		// eslint-disable-next-line no-sync
 		return fs.statSync(path);
-	}
-	catch (err) {
+	} catch (err) {
 		return null;
 	}
 }
@@ -151,8 +151,7 @@ function expandExtensions(e) {
 		const l = e.length;
 		src = l ? e[0] : null;
 		dst = l > 1 ? e[1] : null;
-	}
-	else {
+	} else {
 		src = e;
 	}
 	const srcs = Array.isArray(src) ? src : [src];
@@ -220,17 +219,18 @@ function resolveExtension(base, extensions, expand = false) {
 	if (stat) {
 		if (stat.isDirectory()) {
 			paths.push('/index');
-		}
-		else {
+		} else {
 			return '';
 		}
 	}
 	for (const path of paths) {
 		for (const extension of extensions) {
-			const {srcs, dst} = expand ? expandExtensions(extension) : {
-				srcs: [extension],
-				dst: extension
-			};
+			const {srcs, dst} = expand
+				? expandExtensions(extension)
+				: {
+						srcs: [extension],
+						dst: extension
+				  };
 			for (const src of srcs) {
 				const stat = pathStat(`${base}${path}${src}`);
 				if (stat && !stat.isDirectory()) {
@@ -268,12 +268,9 @@ function visitDeclarationPath(nodePath, state) {
 	const resolved = resolveExtension(resolveBase, extensions, true);
 	if (resolved === null) {
 		if (!ignoreUnresolved) {
-			throw new Error(
-				`Failed to resolve path: ${src} in: ${filename}`
-			);
+			throw new Error(`Failed to resolve path: ${src} in: ${filename}`);
 		}
-	}
-	else {
+	} else {
 		source.value += resolved;
 	}
 }
@@ -313,12 +310,9 @@ function visitDeclarationBarePath(nodePath, state, bareImport) {
 	const resolved = resolveExtension(resolveBase, extensions);
 	if (resolved === null) {
 		if (!ignoreUnresolved) {
-			throw new Error(
-				`Failed to resolve module: ${src} in: ${filename}`
-			);
+			throw new Error(`Failed to resolve module: ${src} in: ${filename}`);
 		}
-	}
-	else {
+	} else {
 		const {source} = nodePath.node;
 		source.value += resolved;
 	}
@@ -433,24 +427,48 @@ function visitDeclaration(nodePath, state) {
 	if (bareImport) {
 		if (bareImport.path) {
 			visitDeclarationBarePath(nodePath, state, bareImport);
-		}
-		else {
+		} else {
 			visitDeclarationBareMain(nodePath, state, bareImport);
 		}
 		return;
 	}
 }
 
+/**
+ * Babel plugin entry point.
+ *
+ * @returns {object} Plugin methods.
+ */
 // eslint-disable-next-line arrow-body-style, import/no-default-export
 export default () => {
 	return {
 		visitor: {
+			/**
+			 * Visitor callback for import declarations.
+			 *
+			 * @param {object} path AST node.
+			 * @param {object} state AST state.
+			 */
 			ImportDeclaration(path, state) {
 				visitDeclaration(path, state);
 			},
+
+			/**
+			 * Visitor callback for export all declarations.
+			 *
+			 * @param {object} path AST node.
+			 * @param {object} state AST state.
+			 */
 			ExportAllDeclaration(path, state) {
 				visitDeclaration(path, state);
 			},
+
+			/**
+			 * Visitor callback for export names declarations.
+			 *
+			 * @param {object} path AST node.
+			 * @param {object} state AST state.
+			 */
 			ExportNamedDeclaration(path, state) {
 				visitDeclaration(path, state);
 			}

@@ -5,12 +5,15 @@ import * as babel from '@babel/core';
 import plugin from './index';
 
 function listDirs(path) {
-	// eslint-disable-next-line no-sync
-	return fs.readdirSync(path)
-		.filter(s => !/!\./.test(s))
+	return (
 		// eslint-disable-next-line no-sync
-		.filter(s => fs.statSync(`${path}/${s}`).isDirectory())
-		.sort();
+		fs
+			.readdirSync(path)
+			.filter(s => !/!\./.test(s))
+			// eslint-disable-next-line no-sync
+			.filter(s => fs.statSync(`${path}/${s}`).isDirectory())
+			.sort()
+	);
 }
 
 function listTransforms() {
@@ -32,8 +35,7 @@ function listTransforms() {
 			try {
 				// eslint-disable-next-line no-sync
 				tests = fs.readFileSync(`${subgroupBase}/tests.json`, 'utf8');
-			}
-			catch (err) {
+			} catch (err) {
 				continue;
 			}
 
@@ -62,9 +64,7 @@ function transformFile(file, opts) {
 	// eslint-disable-next-line no-sync
 	const code = fs.readFileSync(file, 'utf8');
 	const transform = babel.transform(code, {
-		plugins: [
-			[plugin, opts].filter(Boolean)
-		],
+		plugins: [[plugin, opts].filter(Boolean)],
 		code: true,
 		ast: false,
 		babelrc: false,
@@ -89,12 +89,10 @@ function transformTest(info) {
 		if (info.path) {
 			expect(path).toBe(info.path);
 		}
-	}
-	catch (err) {
+	} catch (err) {
 		if (info.throws) {
 			expect(err.message.includes(info.throws)).toBe(true);
-		}
-		else {
+		} else {
 			throw err;
 		}
 	}

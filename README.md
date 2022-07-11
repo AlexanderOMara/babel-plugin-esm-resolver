@@ -10,7 +10,6 @@ A Babel plugin for resolving ESM import and export paths
 
 [![Build Status](https://github.com/AlexanderOMara/babel-plugin-esm-resolver/workflows/main/badge.svg?branch=master)](https://github.com/AlexanderOMara/babel-plugin-esm-resolver/actions?query=workflow%3Amain+branch%3Amaster)
 
-
 # Overview
 
 Resolves ESM import and export paths to other source modules with extensions, optionally replacing the extension with a different one (including imports with extensions, like native ESM and Deno-style TypeScript). This is useful because browsers cannot perform automatic file extension resolution, and other environments like Node may not have this enabled by default either.
@@ -21,7 +20,6 @@ Must be configured to work properly, it will not do anything by default.
 
 There are three classes of resolver that can be enabled (`source`, `module`, `submodule`) depending on the modules that need to be resloved. Module support for ESM has improved however so only `source` is likely to be needed.
 
-
 # Usage
 
 ## Options
@@ -30,11 +28,9 @@ There are three classes of resolver that can be enabled (`source`, `module`, `su
 -   [`module`](options/module.md) Module main entry points (`import foo from 'bar'`).
 -   [`submodule`](options/submodule.md) Module submodules (`import foo from 'bar/foo'`).
 
-
 # Bugs
 
 If you find a bug or have compatibility issues, please open a ticket under issues section for this repository.
-
 
 # License
 

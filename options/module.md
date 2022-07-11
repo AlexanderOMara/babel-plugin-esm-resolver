@@ -13,18 +13,12 @@ A list of entry point resolvers.
 	{
 		"type": "package.json",
 		"field": "module",
-		"extensions": [
-			".mjs",
-			".js"
-		]
+		"extensions": [".mjs", ".js"]
 	},
 	{
 		"type": "file",
 		"path": "./module",
-		"extensions": [
-			".mjs",
-			".js"
-		]
+		"extensions": [".mjs", ".js"]
 	}
 ]
 ```
@@ -32,7 +26,6 @@ A list of entry point resolvers.
 ## `submodule.ignoreExports`
 
 Set to `true` to ignore any modules that have an `exports` entry (very important).
-
 
 # Examples
 
@@ -43,29 +36,32 @@ Set to `true` to ignore any modules that have an `exports` entry (very important
 ```json
 {
 	"presets": [
-		["@babel/preset-env", {
-			"modules": false,
-			"targets": {
-				"node": "current"
+		[
+			"@babel/preset-env",
+			{
+				"modules": false,
+				"targets": {
+					"node": "current"
+				}
 			}
-		}]
+		]
 	],
 	"plugins": [
-		["esm-resolver", {
-			"module": {
-				"entry": [
-					{
-						"type": "package.json",
-						"field": "module",
-						"extensions": [
-							".mjs",
-							".js"
-						]
-					}
-				],
-				"ignoreExports": true
+		[
+			"esm-resolver",
+			{
+				"module": {
+					"entry": [
+						{
+							"type": "package.json",
+							"field": "module",
+							"extensions": [".mjs", ".js"]
+						}
+					],
+					"ignoreExports": true
+				}
 			}
-		}]
+		]
 	]
 }
 ```
@@ -79,9 +75,8 @@ import {foo} from 'bar';
 **output:**
 
 ```js
-import { foo } from "bar/lib/index.mjs";
+import {foo} from 'bar/lib/index.mjs';
 ```
-
 
 ## Example `file` path `./module`
 
@@ -90,29 +85,32 @@ import { foo } from "bar/lib/index.mjs";
 ```json
 {
 	"presets": [
-		["@babel/preset-env", {
-			"modules": false,
-			"targets": {
-				"node": "current"
+		[
+			"@babel/preset-env",
+			{
+				"modules": false,
+				"targets": {
+					"node": "current"
+				}
 			}
-		}]
+		]
 	],
 	"plugins": [
-		["esm-resolver", {
-			"module": {
-				"entry": [
-					{
-						"type": "file",
-						"path": "./module",
-						"extensions": [
-							".mjs",
-							".js"
-						]
-					}
-				],
-				"ignoreExports": true
+		[
+			"esm-resolver",
+			{
+				"module": {
+					"entry": [
+						{
+							"type": "file",
+							"path": "./module",
+							"extensions": [".mjs", ".js"]
+						}
+					],
+					"ignoreExports": true
+				}
 			}
-		}]
+		]
 	]
 }
 ```
@@ -126,5 +124,5 @@ import {foo} from 'bar';
 **output:**
 
 ```js
-import { foo } from "bar/module.mjs";
+import {foo} from 'bar/module.mjs';
 ```

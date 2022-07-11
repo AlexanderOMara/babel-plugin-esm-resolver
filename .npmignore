@@ -18,16 +18,19 @@ report.*.json
 yarn.lock
 .nvmrc
 
+# IDE config
+.vscode
+
 /package-lock.json
 /.gitattributes
 /.gitignore
 /.github
-/.babelrc*
+/.babelrc
 /.editorconfig
 /.eslintignore
 /.eslintrc.yaml
-/.tern-project
-/gulpfile.babel.js
+/.prettierrc.yaml
+/.prettierignore
 /nodemon.json
 /spec
 /src

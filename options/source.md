@@ -13,34 +13,24 @@ Takes the form of one of the following.
 1.  Resolve `.js` or `.json` in that order.
 
 ```json
-[
-	".js",
-	".json"
-]
+[".js", ".json"]
 ```
 
 2.  Resolve `.ts` or `.json` in that order, uses `.js` for imports of `.ts` modules in transpiled code.
 
 ```json
-[
-	[".ts", ".js"],
-	".json"
-]
+[[".ts", ".js"], ".json"]
 ```
 
 3.  Resolve `.ts`, `.tsx`, or `.json` in that order, uses `.js` for imports of `.ts` and `.tsx` modules in transpiled code.
 
 ```json
-[
-	[[".ts", ".tsx"], ".js"],
-	".json"
-]
+[[[".ts", ".tsx"], ".js"], ".json"]
 ```
 
 ## `source.ignoreUnresolved`
 
 Set to `true` to ignore any source modules that cannot be resolved.
-
 
 # Examples
 
@@ -51,21 +41,25 @@ Set to `true` to ignore any source modules that cannot be resolved.
 ```json
 {
 	"presets": [
-		["@babel/preset-env", {
-			"modules": false,
-			"targets": {
-				"node": "current"
+		[
+			"@babel/preset-env",
+			{
+				"modules": false,
+				"targets": {
+					"node": "current"
+				}
 			}
-		}]
+		]
 	],
 	"plugins": [
-		["esm-resolver", {
-			"source": {
-				"extensions": [
-					".js"
-				]
+		[
+			"esm-resolver",
+			{
+				"source": {
+					"extensions": [".js"]
+				}
 			}
-		}]
+		]
 	]
 }
 ```
@@ -85,9 +79,8 @@ export const foo = 123;
 **output:**
 
 ```js
-import { foo } from "./bar.js";
+import {foo} from './bar.js';
 ```
-
 
 ## Example `.ts` -> `.js`
 
@@ -98,21 +91,25 @@ import { foo } from "./bar.js";
 ```json
 {
 	"presets": [
-		["@babel/preset-env", {
-			"modules": false,
-			"targets": {
-				"node": "current"
+		[
+			"@babel/preset-env",
+			{
+				"modules": false,
+				"targets": {
+					"node": "current"
+				}
 			}
-		}]
+		]
 	],
 	"plugins": [
-		["esm-resolver", {
-			"source": {
-				"extensions": [
-					[".ts", ".js"]
-				]
+		[
+			"esm-resolver",
+			{
+				"source": {
+					"extensions": [[".ts", ".js"]]
+				}
 			}
-		}]
+		]
 	]
 }
 ```
@@ -120,9 +117,8 @@ import { foo } from "./bar.js";
 **output:**
 
 ```js
-import { foo } from "./bar.js";
+import {foo} from './bar.js';
 ```
-
 
 ## Example `.ts` + `.js` -> `.js`
 
@@ -131,21 +127,25 @@ import { foo } from "./bar.js";
 ```json
 {
 	"presets": [
-		["@babel/preset-env", {
-			"modules": false,
-			"targets": {
-				"node": "current"
+		[
+			"@babel/preset-env",
+			{
+				"modules": false,
+				"targets": {
+					"node": "current"
+				}
 			}
-		}]
+		]
 	],
 	"plugins": [
-		["esm-resolver", {
-			"source": {
-				"extensions": [
-					[[".ts", ".js"], ".js"]
-				]
+		[
+			"esm-resolver",
+			{
+				"source": {
+					"extensions": [[[".ts", ".js"], ".js"]]
+				}
 			}
-		}]
+		]
 	]
 }
 ```
@@ -172,6 +172,6 @@ export const bar = 123;
 **output:**
 
 ```js
-import { foo } from "./bar.js";
-import { bar } from "./foo.js";
+import {foo} from './bar.js';
+import {bar} from './foo.js';
 ```

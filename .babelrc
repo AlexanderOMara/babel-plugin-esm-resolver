@@ -1,11 +1,14 @@
 {
 	"presets": [
-		["@babel/preset-env", {
-			"modules": "commonjs",
-			"targets": {
-				"node": "6.9.0"
+		[
+			"@babel/preset-env",
+			{
+				"modules": "commonjs",
+				"targets": {
+					"node": "6.9.0"
+				}
 			}
-		}]
+		]
 	],
 	"plugins": []
 }
