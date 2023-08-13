@@ -17,7 +17,7 @@
 		"node": ">=6.9.0"
 	},
 	"scripts": {
-		"clean": "rimraf npm-debug.log* yarn-debug.log* yarn-error.log* lib",
+		"clean": "rimraf *.log* lib",
 		"lint": "eslint . --ext js,mjs",
 		"format": "prettier -w .",
 		"formatted": "prettier -c .",
