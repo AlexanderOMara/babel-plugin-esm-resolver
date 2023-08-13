@@ -210,7 +210,7 @@ function resolveModuleDir(name, file) {
  *
  * @param {string} base Path base.
  * @param {Array|string} extensions Extensions option.
- * @param {boolean} [expand=false] Should extensions be expanded.
+ * @param {boolean} expand Should extensions be expanded.
  * @returns {string|null} Resolved extension.
  */
 function resolveExtension(base, extensions, expand = false) {
