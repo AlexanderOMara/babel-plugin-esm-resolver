@@ -1,3 +1,4 @@
+import {ok, strictEqual} from 'assert';
 import fs from 'fs';
 
 import * as babel from '@babel/core';
@@ -82,42 +83,29 @@ function extractCodePath(code) {
 	return m ? m[2] : null;
 }
 
-function transformTest(info) {
+function transformTest(group, subgroup, test) {
+	const pre = `${group.name} > ${subgroup.name} > ${test.name}`;
 	try {
-		const t = transformFile(info.file, info.options);
+		const t = transformFile(test.file, test.options);
 		const path = extractCodePath(t.codeOut);
-		if (info.path) {
-			expect(path).toBe(info.path);
+		if (test.path) {
+			strictEqual(path, test.path, `${pre}: path`);
 		}
 	} catch (err) {
-		if (info.throws) {
-			expect(err.message.includes(info.throws)).toBe(true);
+		if (test.throws) {
+			ok(err.message.includes(test.throws), `${pre}: throws`);
 		} else {
 			throw err;
 		}
 	}
 }
 
-describe('index', () => {
-	describe('exports', () => {
-		it('default', () => {
-			expect(typeof plugin).toBe('function');
-		});
-	});
+strictEqual(typeof plugin, 'function', 'Export function');
 
-	describe('tranforms', () => {
-		for (const group of listTransforms()) {
-			describe(group.name, () => {
-				for (const subgroup of group.tests) {
-					describe(subgroup.name, () => {
-						for (const test of subgroup.tests) {
-							it(test.name, () => {
-								transformTest(test);
-							});
-						}
-					});
-				}
-			});
+for (const group of listTransforms()) {
+	for (const subgroup of group.tests) {
+		for (const test of subgroup.tests) {
+			transformTest(group, subgroup, test);
 		}
-	});
-});
+	}
+}

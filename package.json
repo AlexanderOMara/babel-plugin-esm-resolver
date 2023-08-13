@@ -22,7 +22,7 @@
 		"format": "prettier -w .",
 		"formatted": "prettier -c .",
 		"build": "babel src --out-dir lib --source-maps true",
-		"test": "jasmine",
+		"test": "node ./lib/index.spec.js",
 		"all": "run-s clean build test lint formatted",
 		"watch": "nodemon --exec 'run-s all'",
 		"prepack": "run-s clean build"
