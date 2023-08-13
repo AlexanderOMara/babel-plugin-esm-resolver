@@ -28,6 +28,8 @@ There are three classes of resolver that can be enabled (`source`, `module`, `su
 -   [`module`](options/module.md) Module main entry points (`import foo from 'bar'`).
 -   [`submodule`](options/submodule.md) Module submodules (`import foo from 'bar/foo'`).
 
+NOTE: The `module` and `submodule` options are generally no longer needed now that conditional exports are available.
+
 # Bugs
 
 If you find a bug or have compatibility issues, please open a ticket under issues section for this repository.
