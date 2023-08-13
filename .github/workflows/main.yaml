@@ -63,18 +63,30 @@ jobs:
       - name: Node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.config.node-version }}
+          node-version: '18.17.1'
+
+      - name: Node Version
+        run: node --version
+
+      - name: NPM Version
+        run: npm --version
 
       - name: Dependencies
         run: npm ci
-        if: matrix.config.NO_NPM_CI != 1
-
-      - name: Dependencies
-        run: npm install
-        if: matrix.config.NO_NPM_CI == 1
 
       - name: Build
         run: npm run build
+
+      - name: Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.config.node-version }}
+
+      - name: Node Version
+        run: node --version
+
+      - name: NPM Version
+        run: npm --version
 
       - name: Test
         run: npm run test
