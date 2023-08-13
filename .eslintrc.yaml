@@ -260,5 +260,3 @@ overrides:
           optionalDependencies: false
           peerDependencies: false
       jsdoc/require-jsdoc: off
-    env:
-      jasmine: true
