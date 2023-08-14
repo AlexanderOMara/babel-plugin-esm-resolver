@@ -31,7 +31,6 @@ yarn.lock
 /.eslintrc.yaml
 /.prettierrc.yaml
 /.prettierignore
-/nodemon.json
 /spec
 /src
 /options
