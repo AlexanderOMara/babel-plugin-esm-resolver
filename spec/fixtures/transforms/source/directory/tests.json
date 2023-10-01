@@ -1,0 +1,14 @@
+[
+	{
+		"name": "slash",
+		"file": "main.mjs",
+		"path": "./bar/index.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					".mjs"
+				]
+			}
+		}
+	}
+]
