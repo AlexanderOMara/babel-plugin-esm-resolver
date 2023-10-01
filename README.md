@@ -24,9 +24,9 @@ There are three classes of resolver that can be enabled (`source`, `module`, `su
 
 ## Options
 
--   [`source`](options/source.md) Source modules (`import foo from './bar'`).
--   [`module`](options/module.md) Module main entry points (`import foo from 'bar'`).
--   [`submodule`](options/submodule.md) Module submodules (`import foo from 'bar/foo'`).
+-   [`source`](options/source.md) Source modules: `import foo from './bar'`
+-   [`module`](options/module.md) Module main entry points: `import foo from 'bar'`
+-   [`submodule`](options/submodule.md) Module submodules: `import foo from 'bar/foo'`
 
 NOTE: The `module` and `submodule` options are generally no longer needed now that conditional exports are available.
 
