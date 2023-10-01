@@ -3,6 +3,8 @@ import path from 'path';
 import Module from 'module';
 import process from 'process';
 
+const rSlashed = /[\\/]$/;
+
 let moduleIsBuiltinCache = null;
 
 /**
@@ -214,13 +216,18 @@ function resolveModuleDir(name, file) {
  * @returns {string|null} Resolved extension.
  */
 function resolveExtension(base, extensions, expand = false) {
-	const stat = pathStat(base);
-	const paths = [''];
-	if (stat) {
-		if (stat.isDirectory()) {
-			paths.push('/index');
-		} else {
-			return '';
+	let paths;
+	if (rSlashed.test(base)) {
+		paths = ['index'];
+	} else {
+		paths = [''];
+		const stat = pathStat(base);
+		if (stat) {
+			if (stat.isDirectory()) {
+				paths.push('/index');
+			} else {
+				return '';
+			}
 		}
 	}
 	for (const path of paths) {
