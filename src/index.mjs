@@ -446,39 +446,36 @@ function visitDeclaration(nodePath, state) {
  *
  * @returns {object} Plugin methods.
  */
-// eslint-disable-next-line arrow-body-style, import/no-default-export
-export default () => {
-	return {
-		visitor: {
-			/**
-			 * Visitor callback for import declarations.
-			 *
-			 * @param {object} path AST node.
-			 * @param {object} state AST state.
-			 */
-			ImportDeclaration(path, state) {
-				visitDeclaration(path, state);
-			},
+export default () => ({
+	visitor: {
+		/**
+		 * Visitor callback for import declarations.
+		 *
+		 * @param {object} path AST node.
+		 * @param {object} state AST state.
+		 */
+		ImportDeclaration(path, state) {
+			visitDeclaration(path, state);
+		},
 
-			/**
-			 * Visitor callback for export all declarations.
-			 *
-			 * @param {object} path AST node.
-			 * @param {object} state AST state.
-			 */
-			ExportAllDeclaration(path, state) {
-				visitDeclaration(path, state);
-			},
+		/**
+		 * Visitor callback for export all declarations.
+		 *
+		 * @param {object} path AST node.
+		 * @param {object} state AST state.
+		 */
+		ExportAllDeclaration(path, state) {
+			visitDeclaration(path, state);
+		},
 
-			/**
-			 * Visitor callback for export names declarations.
-			 *
-			 * @param {object} path AST node.
-			 * @param {object} state AST state.
-			 */
-			ExportNamedDeclaration(path, state) {
-				visitDeclaration(path, state);
-			}
+		/**
+		 * Visitor callback for export names declarations.
+		 *
+		 * @param {object} path AST node.
+		 * @param {object} state AST state.
+		 */
+		ExportNamedDeclaration(path, state) {
+			visitDeclaration(path, state);
 		}
-	};
-};
+	}
+});
