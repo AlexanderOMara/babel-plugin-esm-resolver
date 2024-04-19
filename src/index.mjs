@@ -237,7 +237,7 @@ function resolveExtension(base, extensions, expand = false) {
 				: {
 						srcs: [extension],
 						dst: extension
-				  };
+					};
 			for (const src of srcs) {
 				const stat = pathStat(`${base}${path}${src}`);
 				if (stat && !stat.isDirectory()) {
