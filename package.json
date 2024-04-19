@@ -17,7 +17,7 @@
 		"node": ">=6.9.0"
 	},
 	"scripts": {
-		"clean": "rimraf *.log* lib",
+		"clean": "rimraf lib",
 		"lint": "eslint . --ext js,mjs",
 		"format": "prettier -w .",
 		"formatted": "prettier -c .",
