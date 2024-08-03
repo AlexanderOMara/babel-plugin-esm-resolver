@@ -1,0 +1,38 @@
+[
+	{
+		"name": ".ts",
+		"file": "main.ts",
+		"path": "./bar.ts",
+		"options": {
+			"source": {
+				"extensions": [
+					".ts"
+				]
+			}
+		}
+	},
+	{
+		"name": ".ts -> .js",
+		"file": "main.ts",
+		"path": "./bar.js",
+		"options": {
+			"source": {
+				"extensions": [
+					[".ts", ".js"]
+				]
+			}
+		}
+	},
+	{
+		"name": ".ts -> .mjs",
+		"file": "main.ts",
+		"path": "./bar.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					[".ts", ".mjs"]
+				]
+			}
+		}
+	}
+]

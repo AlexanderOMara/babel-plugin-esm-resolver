@@ -1,0 +1,38 @@
+[
+	{
+		"name": ".mjs",
+		"file": "main.mjs",
+		"path": "./bar.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					".mjs"
+				]
+			}
+		}
+	},
+	{
+		"name": ".mjs -> .mjs",
+		"file": "main.mjs",
+		"path": "./bar.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					[".mjs", ".mjs"]
+				]
+			}
+		}
+	},
+	{
+		"name": ".mjs -> .js",
+		"file": "main.mjs",
+		"path": "./bar.js",
+		"options": {
+			"source": {
+				"extensions": [
+					[".mjs", ".js"]
+				]
+			}
+		}
+	}
+]

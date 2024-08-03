@@ -218,25 +218,48 @@ function resolveModuleDir(name, file) {
 function resolveExtension(value, base, extensions, expand = false) {
 	let paths;
 	while (!paths) {
+		// If explicit directory, search for dir+index+ext.
 		if (/[\\/]$/.test(base)) {
 			paths = ['index'];
 			break;
 		}
 
+		// If not directory/file, search for file+ext.
 		const stat = pathStat(base);
 		if (!stat) {
 			paths = [''];
 			break;
 		}
 
+		// If a directory, search for file+ext then dir+index+ext.
 		if (stat.isDirectory()) {
 			paths = ['', '/index'];
 			break;
 		}
 
+		// Already full path, no need to search, maybe replace ext.
+		if (expand) {
+			const valueL = value.length;
+			for (const extension of extensions) {
+				const {srcs, dst} = expandExtensions(extension);
+				for (const src of srcs) {
+					const extI = valueL - src.length;
+					if (extI < 0 || value.substring(extI) !== src) {
+						continue;
+					}
+					if (dst === null) {
+						return value;
+					}
+					return `${value.substring(0, extI)}${dst}`;
+				}
+			}
+		}
+
+		// Nothing to replace, use as is.
 		return value;
 	}
 
+	// Search for the file with the extension at the paths.
 	for (const path of paths) {
 		for (const extension of extensions) {
 			const {srcs, dst} = expand

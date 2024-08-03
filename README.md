@@ -12,7 +12,7 @@ A Babel plugin for resolving ESM import and export paths
 
 # Overview
 
-Resolves ESM import and export paths to other source modules with extensions, optionally replacing the extension with a different one. This is useful because most environments will not perform automatic file extension resolution.
+Resolves ESM import and export paths to other source modules with extensions, optionally replacing the extension with a different one (including imports with extensions, like native ESM and Deno-style TypeScript). This is useful because most environments will not perform automatic file extension resolution.
 
 Since it resolves the statements before the modules are transpiled, it can also be used to resolve the paths for other transpiled module loaders.
 
