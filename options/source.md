@@ -114,6 +114,24 @@ import {foo} from './bar.js';
 }
 ```
 
+`src/main.ts`
+
+```js
+import {foo} from './bar';
+```
+
+Or with extensions included:
+
+```js
+import {foo} from './bar.ts';
+```
+
+`src/bar.ts`
+
+```js
+export const foo = 123;
+```
+
 **output:**
 
 ```js
@@ -155,6 +173,13 @@ import {foo} from './bar.js';
 ```js
 import {foo} from './bar';
 import {bar} from './foo';
+```
+
+Or with extensions included:
+
+```js
+import {foo} from './bar.ts';
+import {bar} from './foo.js';
 ```
 
 `src/bar.ts`
