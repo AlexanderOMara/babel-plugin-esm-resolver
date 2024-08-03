@@ -3,8 +3,6 @@ import path from 'path';
 import Module from 'module';
 import process from 'process';
 
-const rSlashed = /[\\/]$/;
-
 let moduleIsBuiltinCache = null;
 
 /**
@@ -217,7 +215,7 @@ function resolveModuleDir(name, file) {
  */
 function resolveExtension(base, extensions, expand = false) {
 	let paths;
-	if (rSlashed.test(base)) {
+	if (/[\\/]$/.test(base)) {
 		paths = ['index'];
 	} else {
 		paths = [''];
