@@ -10,5 +10,17 @@
 				]
 			}
 		}
+	},
+	{
+		"name": "ignored",
+		"file": "import.mjs",
+		"path": "./bar.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					".js"
+				]
+			}
+		}
 	}
 ]

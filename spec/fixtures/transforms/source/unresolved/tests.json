@@ -23,5 +23,30 @@
 				"ignoreUnresolved": true
 			}
 		}
+	},
+	{
+		"name": "throws",
+		"file": "import.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					".js"
+				]
+			}
+		},
+		"throws": "Failed to resolve path"
+	},
+	{
+		"name": "ignored",
+		"file": "import.mjs",
+		"path": "./bar",
+		"options": {
+			"source": {
+				"extensions": [
+					".js"
+				],
+				"ignoreUnresolved": true
+			}
+		}
 	}
 ]

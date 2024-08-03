@@ -492,6 +492,24 @@ export default () => ({
 			if (source) {
 				source.value = resolveSource(source.value, state);
 			}
+		},
+
+		/**
+		 * Visitor callback for call expression (for dynamic imports).
+		 *
+		 * @param {object} path AST node.
+		 * @param {object} state AST state.
+		 */
+		CallExpression(path, state) {
+			// Only transform dynamic imports with a string literal.
+			const {node} = path;
+			const {callee} = node;
+			if (callee && callee.type === 'Import') {
+				const [arg0] = node.arguments;
+				if (arg0 && arg0.type === 'StringLiteral') {
+					arg0.value = resolveSource(arg0.value, state);
+				}
+			}
 		}
 	}
 });

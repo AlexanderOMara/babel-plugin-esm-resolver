@@ -80,8 +80,15 @@ function transformFile(file, opts) {
 
 function extractCodePath(code) {
 	// Extract the import or export path.
-	const m = code.match(/(import|export)[^'"]+from\s+['"]([^'"]*)['"]/);
-	return m ? m[2] : null;
+	let m = code.match(/(import|export)[^'"]+from\s+['"]([^'"]*)['"]/);
+	if (m) {
+		return m[2];
+	}
+	m = code.match(/import\s*\(\s*(['"]([^'"]*)['"])\s*\)/);
+	if (m) {
+		return m[2];
+	}
+	return null;
 }
 
 function transformTest(group, subgroup, test) {

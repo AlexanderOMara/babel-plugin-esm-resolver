@@ -5,5 +5,12 @@
 		"path": "@-testing/module/lib/bar",
 		"options": {
 		}
+	},
+	{
+		"name": "changed",
+		"file": "import.mjs",
+		"path": "@-testing/module/lib/bar",
+		"options": {
+		}
 	}
 ]

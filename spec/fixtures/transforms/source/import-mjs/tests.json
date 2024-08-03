@@ -34,5 +34,41 @@
 				]
 			}
 		}
+	},
+	{
+		"name": ".mjs",
+		"file": "import.mjs",
+		"path": "./bar.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					".mjs"
+				]
+			}
+		}
+	},
+	{
+		"name": ".mjs -> .mjs",
+		"file": "import.mjs",
+		"path": "./bar.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					[".mjs", ".mjs"]
+				]
+			}
+		}
+	},
+	{
+		"name": ".mjs -> .js",
+		"file": "import.mjs",
+		"path": "./bar.js",
+		"options": {
+			"source": {
+				"extensions": [
+					[".mjs", ".js"]
+				]
+			}
+		}
 	}
 ]

@@ -10,5 +10,17 @@
 				]
 			}
 		}
+	},
+	{
+		"name": "ignored",
+		"file": "import.mjs",
+		"path": "https://example.com/main.js",
+		"options": {
+			"source": {
+				"extensions": [
+					".js"
+				]
+			}
+		}
 	}
 ]

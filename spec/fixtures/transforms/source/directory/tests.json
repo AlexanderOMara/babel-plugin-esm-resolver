@@ -10,5 +10,17 @@
 				]
 			}
 		}
+	},
+	{
+		"name": "slash",
+		"file": "import.mjs",
+		"path": "./bar/index.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					".mjs"
+				]
+			}
+		}
 	}
 ]

@@ -17,5 +17,24 @@
 				]
 			}
 		}
+	},
+	{
+		"name": "changed",
+		"file": "import.mjs",
+		"path": "-testing-module/lib/main.mjs",
+		"options": {
+			"module": {
+				"entry": [
+					{
+						"type": "package.json",
+						"field": "module",
+						"extensions": [
+							".js",
+							".mjs"
+						]
+					}
+				]
+			}
+		}
 	}
 ]

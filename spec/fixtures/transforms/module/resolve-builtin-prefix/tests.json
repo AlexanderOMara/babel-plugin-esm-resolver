@@ -13,5 +13,20 @@
 				]
 			}
 		}
+	},
+	{
+		"name": "unchanged",
+		"file": "import.mjs",
+		"path": "node:path",
+		"options": {
+			"module": {
+				"entry": [
+					{
+						"type": "file",
+						"path": "./lib/main.mjs"
+					}
+				]
+			}
+		}
 	}
 ]

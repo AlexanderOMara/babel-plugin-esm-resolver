@@ -1,1 +1,1 @@
-import {foo} from '@bar/core';
+import {foo} from '@-testing-module/core';

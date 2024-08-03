@@ -5,5 +5,12 @@
 		"path": "./bar",
 		"options": {
 		}
+	},
+	{
+		"name": "ignored",
+		"file": "import.mjs",
+		"path": "./bar",
+		"options": {
+		}
 	}
 ]

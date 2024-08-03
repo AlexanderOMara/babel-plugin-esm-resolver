@@ -2,7 +2,13 @@
 	{
 		"name": "ignored",
 		"file": "main.mjs",
-		"path": "bar",
+		"path": "-testing-module",
+		"options": {}
+	},
+	{
+		"name": "ignored",
+		"file": "import.mjs",
+		"path": "-testing-module",
 		"options": {}
 	}
 ]

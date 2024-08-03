@@ -23,5 +23,30 @@
 				"ignoreUnresolved": true
 			}
 		}
+	},
+	{
+		"name": "changed",
+		"file": "import.mjs",
+		"options": {
+			"submodule": {
+				"extensions": [
+					".js"
+				]
+			}
+		},
+		"throws": "Failed to resolve module"
+	},
+	{
+		"name": "ignore",
+		"file": "import.mjs",
+		"path": "@-testing/module/lib/bar",
+		"options": {
+			"submodule": {
+				"extensions": [
+					".js"
+				],
+				"ignoreUnresolved": true
+			}
+		}
 	}
 ]

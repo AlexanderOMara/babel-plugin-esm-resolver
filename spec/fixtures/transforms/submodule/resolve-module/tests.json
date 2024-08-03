@@ -10,5 +10,17 @@
 				]
 			}
 		}
+	},
+	{
+		"name": "changed",
+		"file": "import.mjs",
+		"path": "-testing-module/lib/bar.js",
+		"options": {
+			"submodule": {
+				"extensions": [
+					".js"
+				]
+			}
+		}
 	}
 ]

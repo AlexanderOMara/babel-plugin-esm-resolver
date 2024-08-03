@@ -38,5 +38,45 @@
 				]
 			}
 		}
+	},
+	{
+		"name": ".mjs",
+		"file": "import.ts",
+		"path": "./bar.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					".ts",
+					".mjs",
+					".js"
+				]
+			}
+		}
+	},
+	{
+		"name": ".js",
+		"file": "import.ts",
+		"path": "./bar.js",
+		"options": {
+			"source": {
+				"extensions": [
+					".ts",
+					".js",
+					".mjs"
+				]
+			}
+		}
+	},
+	{
+		"name": ".ts",
+		"file": "import.ts",
+		"path": "./bar/index.js",
+		"options": {
+			"source": {
+				"extensions": [
+					[".ts", ".js"]
+				]
+			}
+		}
 	}
 ]

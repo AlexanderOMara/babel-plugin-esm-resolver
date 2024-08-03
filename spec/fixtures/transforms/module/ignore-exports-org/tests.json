@@ -14,5 +14,21 @@
 				"ignoreExports": true
 			}
 		}
+	},
+	{
+		"name": "ignored",
+		"file": "import.mjs",
+		"path": "@-testing/module",
+		"options": {
+			"module": {
+				"entry": [
+					{
+						"type": "package.json",
+						"field": "module"
+					}
+				],
+				"ignoreExports": true
+			}
+		}
 	}
 ]

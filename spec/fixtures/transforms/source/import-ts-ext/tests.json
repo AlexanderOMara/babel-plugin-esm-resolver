@@ -34,5 +34,41 @@
 				]
 			}
 		}
+	},
+	{
+		"name": ".ts",
+		"file": "import.ts",
+		"path": "./bar.ts",
+		"options": {
+			"source": {
+				"extensions": [
+					".ts"
+				]
+			}
+		}
+	},
+	{
+		"name": ".ts -> .js",
+		"file": "import.ts",
+		"path": "./bar.js",
+		"options": {
+			"source": {
+				"extensions": [
+					[".ts", ".js"]
+				]
+			}
+		}
+	},
+	{
+		"name": ".ts -> .mjs",
+		"file": "import.ts",
+		"path": "./bar.mjs",
+		"options": {
+			"source": {
+				"extensions": [
+					[".ts", ".mjs"]
+				]
+			}
+		}
 	}
 ]
