@@ -280,17 +280,15 @@ function resolveExtension(value, base, extensions, expand = false) {
 /**
  * Visitor callback for declaration with path.
  *
- * @param {object} nodePath AST node.
+ * @param {string} src Source path.
  * @param {object} state AST state.
+ * @returns {string} Resolved path.
  */
-function visitDeclarationPath(nodePath, state) {
-	const {source} = nodePath.node;
-	const src = source.value;
-
+function resolveDeclarationPath(src, state) {
 	// Parse options.
 	const optsSource = (state.opts || {}).source;
 	if (!optsSource) {
-		return;
+		return src;
 	}
 	const extensions = optsSource.extensions || [];
 	const ignoreUnresolved = optsSource.ignoreUnresolved || false;
@@ -305,26 +303,24 @@ function visitDeclarationPath(nodePath, state) {
 		if (!ignoreUnresolved) {
 			throw new Error(`Failed to resolve path: ${src} in: ${filename}`);
 		}
-	} else {
-		source.value = resolved;
+		return src;
 	}
+	return resolved;
 }
 
 /**
  * Visitor callback for declaration with bare import path.
  *
- * @param {object} nodePath AST node.
+ * @param {string} src Source path.
  * @param {object} state AST state.
  * @param {object} bareImport Bare import info object.
+ * @returns {string} Resolved path.
  */
-function visitDeclarationBarePath(nodePath, state, bareImport) {
-	const {source} = nodePath.node;
-	const src = source.value;
-
+function resolveDeclarationBarePath(src, state, bareImport) {
 	// Parse options.
 	const optsSubmodule = (state.opts || {}).submodule;
 	if (!optsSubmodule) {
-		return;
+		return src;
 	}
 	const extensions = optsSubmodule.extensions || [];
 	const ignoreUnresolved = optsSubmodule.ignoreUnresolved || false;
@@ -337,7 +333,7 @@ function visitDeclarationBarePath(nodePath, state, bareImport) {
 
 	// Optionally ignore modules that have exports.
 	if (ignoreExports && 'exports' in readPackageJson(moduleDir)) {
-		return;
+		return src;
 	}
 
 	// Resolve the file then resolve extension.
@@ -347,28 +343,29 @@ function visitDeclarationBarePath(nodePath, state, bareImport) {
 		if (!ignoreUnresolved) {
 			throw new Error(`Failed to resolve module: ${src} in: ${filename}`);
 		}
-	} else {
-		source.value = resolved;
+		return src;
 	}
+	return resolved;
 }
 
 /**
  * Visitor callback for declaration with bare import main.
  *
- * @param {object} nodePath AST node.
+ * @param {string} src Source path.
  * @param {object} state AST state.
  * @param {object} bareImport Bare import info object.
+ * @returns {string} Resolved path.
  */
-function visitDeclarationBareMain(nodePath, state, bareImport) {
+function resolveDeclarationBareMain(src, state, bareImport) {
 	// Parse options.
 	const optsModule = (state.opts || {}).module;
 	if (!optsModule) {
-		return;
+		return src;
 	}
 	const entry = optsModule.entry || [];
 	const ignoreExports = optsModule.ignoreExports || false;
 	if (!entry.length) {
-		return;
+		return src;
 	}
 
 	// Resolve the module base, or fail.
@@ -379,7 +376,7 @@ function visitDeclarationBareMain(nodePath, state, bareImport) {
 	// Optionally ignore modules that have exports.
 	let pkg = null;
 	if (ignoreExports && 'exports' in (pkg = readPackageJson(moduleDir))) {
-		return;
+		return src;
 	}
 
 	// Try different entry resolvers.
@@ -412,18 +409,14 @@ function visitDeclarationBareMain(nodePath, state, bareImport) {
 		}
 
 		// Resolve entry if possible.
-		const {source} = nodePath.node;
 		const resolveBase = path.join(moduleDir, filePath);
-		const value = `${source.value}/${trimDotSlash(filePath)}`;
+		const value = `${src}/${trimDotSlash(filePath)}`;
 		const resolved = resolveExtension(value, resolveBase, extensions);
-		if (resolved === null) {
-			continue;
+		if (resolved !== null) {
+			return resolved;
 		}
-
-		// Update path and finish.
-		source.value = resolved;
-		break;
 	}
+	return src;
 }
 
 /**
@@ -453,18 +446,16 @@ function visitDeclaration(nodePath, state) {
 
 	// Check if file path.
 	if (importIsFile(src)) {
-		visitDeclarationPath(nodePath, state);
+		source.value = resolveDeclarationPath(src, state);
 		return;
 	}
 
 	// Check if bare import (a module or submodule).
 	const bareImport = importBareParse(src);
 	if (bareImport) {
-		if (bareImport.path) {
-			visitDeclarationBarePath(nodePath, state, bareImport);
-		} else {
-			visitDeclarationBareMain(nodePath, state, bareImport);
-		}
+		source.value = bareImport.path
+			? resolveDeclarationBarePath(src, state, bareImport)
+			: resolveDeclarationBareMain(src, state, bareImport);
 		return;
 	}
 }
