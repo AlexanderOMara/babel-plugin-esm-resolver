@@ -278,13 +278,13 @@ function resolveExtension(value, base, extensions, expand = false) {
 }
 
 /**
- * Visitor callback for declaration with path.
+ * Resolve source for path.
  *
  * @param {string} src Source path.
  * @param {object} state AST state.
  * @returns {string} Resolved path.
  */
-function resolveDeclarationPath(src, state) {
+function resolveSourcePath(src, state) {
 	// Parse options.
 	const optsSource = (state.opts || {}).source;
 	if (!optsSource) {
@@ -309,14 +309,14 @@ function resolveDeclarationPath(src, state) {
 }
 
 /**
- * Visitor callback for declaration with bare import path.
+ * Resolve source for bare import path.
  *
  * @param {string} src Source path.
  * @param {object} state AST state.
  * @param {object} bareImport Bare import info object.
  * @returns {string} Resolved path.
  */
-function resolveDeclarationBarePath(src, state, bareImport) {
+function resolveSourceBarePath(src, state, bareImport) {
 	// Parse options.
 	const optsSubmodule = (state.opts || {}).submodule;
 	if (!optsSubmodule) {
@@ -349,14 +349,14 @@ function resolveDeclarationBarePath(src, state, bareImport) {
 }
 
 /**
- * Visitor callback for declaration with bare import main.
+ * Resolve source for bare import main.
  *
  * @param {string} src Source path.
  * @param {object} state AST state.
  * @param {object} bareImport Bare import info object.
  * @returns {string} Resolved path.
  */
-function resolveDeclarationBareMain(src, state, bareImport) {
+function resolveSourceBareMain(src, state, bareImport) {
 	// Parse options.
 	const optsModule = (state.opts || {}).module;
 	if (!optsModule) {
@@ -446,7 +446,7 @@ function visitDeclaration(nodePath, state) {
 
 	// Check if file path.
 	if (importIsFile(src)) {
-		source.value = resolveDeclarationPath(src, state);
+		source.value = resolveSourcePath(src, state);
 		return;
 	}
 
@@ -454,8 +454,8 @@ function visitDeclaration(nodePath, state) {
 	const bareImport = importBareParse(src);
 	if (bareImport) {
 		source.value = bareImport.path
-			? resolveDeclarationBarePath(src, state, bareImport)
-			: resolveDeclarationBareMain(src, state, bareImport);
+			? resolveSourceBarePath(src, state, bareImport)
+			: resolveSourceBareMain(src, state, bareImport);
 		return;
 	}
 }
