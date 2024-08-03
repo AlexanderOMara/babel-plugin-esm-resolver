@@ -449,23 +449,7 @@ function resolveSource(src, state) {
 			? resolveSourceBarePath(src, state, bareImport)
 			: resolveSourceBareMain(src, state, bareImport);
 	}
-
 	return src;
-}
-
-/**
- * Visitor callback for declarations.
- *
- * @param {object} nodePath AST node.
- * @param {object} state AST state.
- */
-function visitDeclaration(nodePath, state) {
-	const {source} = nodePath.node;
-	if (!source) {
-		return;
-	}
-
-	source.value = resolveSource(source.value, state);
 }
 
 /**
@@ -482,7 +466,8 @@ export default () => ({
 		 * @param {object} state AST state.
 		 */
 		ImportDeclaration(path, state) {
-			visitDeclaration(path, state);
+			const {source} = path.node;
+			source.value = resolveSource(source.value, state);
 		},
 
 		/**
@@ -492,17 +477,21 @@ export default () => ({
 		 * @param {object} state AST state.
 		 */
 		ExportAllDeclaration(path, state) {
-			visitDeclaration(path, state);
+			const {source} = path.node;
+			source.value = resolveSource(source.value, state);
 		},
 
 		/**
-		 * Visitor callback for export names declarations.
+		 * Visitor callback for export named declarations.
 		 *
 		 * @param {object} path AST node.
 		 * @param {object} state AST state.
 		 */
 		ExportNamedDeclaration(path, state) {
-			visitDeclaration(path, state);
+			const {source} = path.node;
+			if (source) {
+				source.value = resolveSource(source.value, state);
+			}
 		}
 	}
 });
