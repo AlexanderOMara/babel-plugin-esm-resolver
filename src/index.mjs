@@ -209,12 +209,13 @@ function resolveModuleDir(name, file) {
 /**
  * Resolve extension for a path base.
  *
+ * @param {string} value Path value.
  * @param {string} base Path base.
  * @param {Array|string} extensions Extensions option.
  * @param {boolean} expand Should extensions be expanded.
- * @returns {string|null} Resolved extension.
+ * @returns {string|null} Resolved path or null.
  */
-function resolveExtension(base, extensions, expand = false) {
+function resolveExtension(value, base, extensions, expand = false) {
 	let paths;
 	if (/[\\/]$/.test(base)) {
 		paths = ['index'];
@@ -225,7 +226,7 @@ function resolveExtension(base, extensions, expand = false) {
 			if (stat.isDirectory()) {
 				paths.push('/index');
 			} else {
-				return '';
+				return value;
 			}
 		}
 	}
@@ -240,7 +241,8 @@ function resolveExtension(base, extensions, expand = false) {
 			for (const src of srcs) {
 				const stat = pathStat(`${base}${path}${src}`);
 				if (stat && !stat.isDirectory()) {
-					return dst === null ? `${path}${src}` : `${path}${dst}`;
+					const e = dst === null ? `${path}${src}` : `${path}${dst}`;
+					return `${value}${e}`;
 				}
 			}
 		}
@@ -271,13 +273,13 @@ function visitDeclarationPath(nodePath, state) {
 	const resolveBase = path.join(path.dirname(filename), src);
 
 	// Resolve from the base.
-	const resolved = resolveExtension(resolveBase, extensions, true);
+	const resolved = resolveExtension(src, resolveBase, extensions, true);
 	if (resolved === null) {
 		if (!ignoreUnresolved) {
 			throw new Error(`Failed to resolve path: ${src} in: ${filename}`);
 		}
 	} else {
-		source.value += resolved;
+		source.value = resolved;
 	}
 }
 
@@ -313,14 +315,14 @@ function visitDeclarationBarePath(nodePath, state, bareImport) {
 
 	// Resolve the file then resolve extension.
 	const resolveBase = `${moduleDir}${bareImport.path}`;
-	const resolved = resolveExtension(resolveBase, extensions);
+	const resolved = resolveExtension(src, resolveBase, extensions);
 	if (resolved === null) {
 		if (!ignoreUnresolved) {
 			throw new Error(`Failed to resolve module: ${src} in: ${filename}`);
 		}
 	} else {
 		const {source} = nodePath.node;
-		source.value += resolved;
+		source.value = resolved;
 	}
 }
 
@@ -384,15 +386,16 @@ function visitDeclarationBareMain(nodePath, state, bareImport) {
 		}
 
 		// Resolve entry if possible.
+		const {source} = nodePath.node;
 		const resolveBase = path.join(moduleDir, filePath);
-		const resolved = resolveExtension(resolveBase, extensions);
+		const value = `${source.value}/${trimDotSlash(filePath)}`;
+		const resolved = resolveExtension(value, resolveBase, extensions);
 		if (resolved === null) {
 			continue;
 		}
 
 		// Update path and finish.
-		const {source} = nodePath.node;
-		source.value += `/${trimDotSlash(filePath)}${resolved}`;
+		source.value = resolved;
 		break;
 	}
 }
