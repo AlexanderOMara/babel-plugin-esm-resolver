@@ -217,27 +217,31 @@ function resolveModuleDir(name, file) {
  */
 function resolveExtension(value, base, extensions, expand = false) {
 	let paths;
-	if (/[\\/]$/.test(base)) {
-		paths = ['index'];
-	} else {
-		paths = [''];
-		const stat = pathStat(base);
-		if (stat) {
-			if (stat.isDirectory()) {
-				paths.push('/index');
-			} else {
-				return value;
-			}
+	while (!paths) {
+		if (/[\\/]$/.test(base)) {
+			paths = ['index'];
+			break;
 		}
+
+		const stat = pathStat(base);
+		if (!stat) {
+			paths = [''];
+			break;
+		}
+
+		if (stat.isDirectory()) {
+			paths = ['', '/index'];
+			break;
+		}
+
+		return value;
 	}
+
 	for (const path of paths) {
 		for (const extension of extensions) {
 			const {srcs, dst} = expand
 				? expandExtensions(extension)
-				: {
-						srcs: [extension],
-						dst: extension
-					};
+				: {srcs: [extension], dst: extension};
 			for (const src of srcs) {
 				const stat = pathStat(`${base}${path}${src}`);
 				if (stat && !stat.isDirectory()) {
