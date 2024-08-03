@@ -420,6 +420,40 @@ function resolveSourceBareMain(src, state, bareImport) {
 }
 
 /**
+ * Resolve source for path.
+ *
+ * @param {string} src Source path.
+ * @param {object} state AST state.
+ * @returns {string} Resolved path.
+ */
+function resolveSource(src, state) {
+	// Ignore any URL imports.
+	if (importIsUrl(src)) {
+		return src;
+	}
+
+	// Ignore any builin modules.
+	if (importIsBuiltin(src)) {
+		return src;
+	}
+
+	// Check if file path.
+	if (importIsFile(src)) {
+		return resolveSourcePath(src, state);
+	}
+
+	// Check if bare import (a module or submodule).
+	const bareImport = importBareParse(src);
+	if (bareImport) {
+		return bareImport.path
+			? resolveSourceBarePath(src, state, bareImport)
+			: resolveSourceBareMain(src, state, bareImport);
+	}
+
+	return src;
+}
+
+/**
  * Visitor callback for declarations.
  *
  * @param {object} nodePath AST node.
@@ -431,33 +465,7 @@ function visitDeclaration(nodePath, state) {
 		return;
 	}
 
-	// Get source, check if needs resolving, and how.
-	const src = source.value;
-
-	// Ignore any URL imports.
-	if (importIsUrl(src)) {
-		return;
-	}
-
-	// Ignore any builin modules.
-	if (importIsBuiltin(src)) {
-		return;
-	}
-
-	// Check if file path.
-	if (importIsFile(src)) {
-		source.value = resolveSourcePath(src, state);
-		return;
-	}
-
-	// Check if bare import (a module or submodule).
-	const bareImport = importBareParse(src);
-	if (bareImport) {
-		source.value = bareImport.path
-			? resolveSourceBarePath(src, state, bareImport)
-			: resolveSourceBareMain(src, state, bareImport);
-		return;
-	}
+	source.value = resolveSource(source.value, state);
 }
 
 /**
