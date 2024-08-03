@@ -18,7 +18,7 @@
 	},
 	"scripts": {
 		"clean": "rimraf lib",
-		"lint": "eslint . --ext js,mjs",
+		"lint": "eslint .",
 		"format": "prettier -w .",
 		"formatted": "prettier -c .",
 		"build": "babel src --out-dir lib --source-maps true",
@@ -35,10 +35,11 @@
 		"@babel/cli": "^7.24.8",
 		"@babel/core": "^7.25.2",
 		"@babel/preset-env": "^7.25.3",
-		"eslint": "^8.57.0",
+		"@eslint/js": "^9.8.0",
+		"@stylistic/eslint-plugin": "^2.6.1",
+		"eslint": "^9.8.0",
 		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-import": "^2.29.1",
-		"eslint-plugin-jsdoc": "^48.2.3",
+		"eslint-plugin-jsdoc": "^48.11.0",
 		"prettier": "^3.3.3",
 		"rimraf": "^6.0.1"
 	}

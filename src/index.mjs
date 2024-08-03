@@ -48,6 +48,7 @@ function pathStat(path) {
 	try {
 		// eslint-disable-next-line no-sync
 		return fs.statSync(path);
+		// eslint-disable-next-line no-unused-vars
 	} catch (err) {
 		return null;
 	}

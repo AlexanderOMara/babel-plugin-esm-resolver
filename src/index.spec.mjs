@@ -36,6 +36,7 @@ function listTransforms() {
 			try {
 				// eslint-disable-next-line no-sync
 				tests = fs.readFileSync(`${subgroupBase}/tests.json`, 'utf8');
+				// eslint-disable-next-line no-unused-vars
 			} catch (err) {
 				continue;
 			}
