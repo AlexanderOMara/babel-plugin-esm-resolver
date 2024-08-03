@@ -321,7 +321,6 @@ function visitDeclarationBarePath(nodePath, state, bareImport) {
 			throw new Error(`Failed to resolve module: ${src} in: ${filename}`);
 		}
 	} else {
-		const {source} = nodePath.node;
 		source.value = resolved;
 	}
 }
