@@ -8,7 +8,7 @@ A Babel plugin for resolving ESM import and export paths
 [![size](https://packagephobia.now.sh/badge?p=babel-plugin-esm-resolver)](https://packagephobia.now.sh/result?p=babel-plugin-esm-resolver)
 [![downloads](https://img.shields.io/npm/dm/babel-plugin-esm-resolver.svg)](https://npmcharts.com/compare/babel-plugin-esm-resolver?minimal=true)
 
-[![Build Status](https://github.com/AlexanderOMara/babel-plugin-esm-resolver/workflows/main/badge.svg)](https://github.com/AlexanderOMara/babel-plugin-esm-resolver/actions?query=workflow%3Amain+branch%3Amaster)
+[![main](https://github.com/AlexanderOMara/babel-plugin-esm-resolver/actions/workflows/main.yaml/badge.svg)](https://github.com/AlexanderOMara/babel-plugin-esm-resolver/actions/workflows/main.yaml)
 
 # Overview
 
